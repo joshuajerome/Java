@@ -35,6 +35,7 @@ public class Database {
                 if (database.contains(line.toLowerCase())) {
                     System.out.println("Database already contains: " + line);
                 } else {
+                    System.out.println("\nTHIS IS THE LINE: " + line);
                     database.add(line.toLowerCase());
                 }
                 resultStringBuilder.append(line).append("\n");
