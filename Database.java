@@ -18,11 +18,10 @@ public class Database {
     }
 
     public void addNameFile(String filename) {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(filename);
         try {
-            readFromInputStream(inputStream);
-        } catch (IOException e) {
+            FileInputStream fis = new FileInputStream(filename);
+            readFromInputStream(fis);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
