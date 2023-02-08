@@ -4,7 +4,6 @@ class Main {
     private static Database database = new Database();
     public static void main(String[] args) {
         database.addNameFile("sample2.txt");
-        database.printDatabase();
         database.addNameFile("sample.txt");
         database.printDatabase();
     }
