@@ -32,7 +32,11 @@ public class Database {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = br.readLine()) != null) {
-                database.add(line.toLowerCase());
+                if (database.contains(line.toLowerCase())) {
+                    System.out.println("Database already contains: " + line);
+                } else {
+                    database.add(line.toLowerCase());
+                }
                 resultStringBuilder.append(line).append("\n");
             }
         }
@@ -41,10 +45,9 @@ public class Database {
 
     public void printDatabase() {
         Iterator<String> iterator = database.iterator();
-        int counter = 1;
+        int counter = 0;
         while (iterator.hasNext()) {
-            System.out.println("Entry " + counter + ":\t" + iterator.next());
-            counter++;
+            System.out.println("Entry " + ++counter + ":\t" + iterator.next());
         }
 
         if (database.size() == 0) System.out.println("Database is empty!\n");
