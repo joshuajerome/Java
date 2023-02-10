@@ -1,5 +1,6 @@
 package src;
 import java.util.*;
+
 public class Event extends Database{
     
     /** Event Criteria:
@@ -13,11 +14,12 @@ public class Event extends Database{
     */
 
     private String name;
-    private HashSet<String> members; // smart comma splicing on a large string -- check that each spliced member is in database. 
+    private List<String> members; // smart comma splicing on a large string -- check that each spliced member is in database. 
 
     public Event(String name) {
         this.name = name;
-        members = new HashSet<>();
+        members = new ArrayList<>();
+        events.put(this.name,members);
     }
 
     

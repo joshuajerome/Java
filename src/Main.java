@@ -1,5 +1,4 @@
 package src;
-
 class Main {
 
     private static Database database = new Database();
@@ -13,6 +12,7 @@ class Main {
             database.addNameFile("resources/sample.txt");
             database.addNameFile("resources/sample2.txt");
         }
-        database.printDatabase();
+        database.printContacts();
     }
+
 }

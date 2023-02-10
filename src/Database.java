@@ -1,34 +1,58 @@
 package src;
+
 import java.util.*;
 import java.io.*;
 
 public class Database {
     
-    private HashSet<String> database;
+    protected HashMap<String, List<String>> contacts;
+    protected HashMap<String, List<String>> events;
 
     public Database() {
-        database = new HashSet<>();
+        contacts = new HashMap<>();
+        events = new HashMap<>();
     }
 
-    public void add(String input) {
-        String person = input.toLowerCase();
-        if (database.contains(person)) {
-            System.out.println(person + " already exists in database!\n");
+    public void addContact(String input) {
+        String user = input.toLowerCase();
+        if (contacts.containsKey(user)) {
+            System.out.println(user + " already exists in database!\n");
             return;   
         }
-        database.add(person);
+        contacts.put(user, new ArrayList<>());
         // need to create a User
     }
 
-    public void delete(String input) {
-        String person = input.toLowerCase();
-        if (!database.contains(person)) {
-            System.out.println("Database does not contain: " + person + "!\n");   
+    public void deleteContact(String input) {
+        String user = input.toLowerCase();
+        if (!contacts.containsKey(user)) {
+            System.out.println("Database does not contain: " + user + "!\n");   
             return;
         }
-        database.remove(person);
+        contacts.remove(user);
     }
 
+    public void clearContacts() {
+        contacts.clear();
+    }
+
+    public void printContacts() {
+        Iterator<String> iterator = contacts.keySet().iterator();
+        int counter = 0;
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            List<String> value = contacts.get(key);
+            
+            StringBuilder sb = new StringBuilder();
+            value.forEach(sb::append);
+
+            System.out.println("Entry " + ++counter + ":\tKey: " + key + "\tValue: " + sb.toString());
+        }
+
+        if (contacts.size() == 0) System.out.println("Database is empty!\n");
+    }
+
+    // For ease of adding several contacts 
     public void addNameFile(String filename) {
         try {
             FileInputStream fis = new FileInputStream(filename);
@@ -44,31 +68,11 @@ public class Database {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = br.readLine()) != null) {
-                if (database.contains(line.toLowerCase())) {
-                    System.out.println("Database already contains: " + line);
-                } else {
-                    database.add(line.toLowerCase());
-                    // create a user
-                }
+                addContact(line);
                 resultStringBuilder.append(line).append("\n");
             }
         }
         return resultStringBuilder.toString();
     }
-
-    public void printDatabase() {
-        Iterator<String> iterator = database.iterator();
-        int counter = 0;
-        while (iterator.hasNext()) {
-            System.out.println("Entry " + ++counter + ":\t" + iterator.next());
-        }
-
-        if (database.size() == 0) System.out.println("Database is empty!\n");
-    }
-
-    public void clearDatabase() {
-        database.removeAll(database);
-    }
-
 
 }
