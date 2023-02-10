@@ -6,7 +6,8 @@ import java.io.*;
 public class Database {
     
     protected HashMap<String, List<String>> contacts;
-    protected HashMap<String, List<String>> events;
+    protected HashMap<String, List<Occasion>> events;
+    protected HashMap<User, Double> transaction_balance;
 
     public Database() {
         contacts = new HashMap<>();
@@ -14,7 +15,7 @@ public class Database {
     }
 
     public void addContact(String input) {
-        String user = input.toLowerCase();
+        String user = Character.toString(input.charAt(0)) + input.substring(1).toLowerCase();
         if (contacts.containsKey(user)) {
             System.out.println(user + " already exists in database!\n");
             return;   
@@ -24,7 +25,7 @@ public class Database {
     }
 
     public void deleteContact(String input) {
-        String user = input.toLowerCase();
+        String user = Character.toString(input.charAt(0)) + input.substring(1).toLowerCase();
         if (!contacts.containsKey(user)) {
             System.out.println("Database does not contain: " + user + "!\n");   
             return;

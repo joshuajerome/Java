@@ -14,14 +14,15 @@ public class Event extends Database{
     */
 
     private String name;
-    private List<String> members; // smart comma splicing on a large string -- check that each spliced member is in database. 
+    private List<Occasion> occasions;
 
     public Event(String name) {
         this.name = name;
-        members = new ArrayList<>();
-        events.put(this.name,members);
+        // members = new ArrayList<>();
+        // events.put(this.name,members);
     }
 
+    public Event() {}
     
 
 }
