@@ -3,9 +3,9 @@ package src;
 import java.util.*;
 import java.io.*;
 
-public class Database {
+public class Database extends User {
     
-    protected HashMap<String, User> contacts;
+    protected HashMap<User, HashMap<String, String>> contacts;
     protected HashMap<String, List<Occasion>> events;
     protected HashMap<User, Double> transaction_balance;
 
@@ -16,20 +16,24 @@ public class Database {
 
     public void addContact(String input) {
         User user = new User(input);
-        String name = user.toString();
-        if (contacts.containsKey(name)) {
+        if (contacts.containsKey(user)) {
             System.out.println(user + " already exists in database!\n");
             return;   
         }
-        contacts.put(name, user);
+        contacts.put(user,new HashMap<>());
     }
 
     public void deleteContact(String input) {
-        if (!contacts.containsKey(input)) {
-            System.out.println("Database does not contain: " + input + "!\n");   
-            return;
+        Iterator<User> iterator = contacts.keySet().iterator();
+        input = validateName(input);
+        while (iterator.hasNext()) {
+            User tmp = iterator.next();
+            if (tmp.toString().equals(input)) {
+                contacts.remove(tmp);
+                return;
+            }
         }
-        contacts.remove(input);
+        System.out.println("Database does not contain: " + input + "!\n"); 
     }
 
     public void clearContacts() {
@@ -37,16 +41,25 @@ public class Database {
     }
 
     public void printContacts() {
-        Iterator<String> iterator = contacts.keySet().iterator();
+        Iterator<User> iterator = contacts.keySet().iterator();
         int counter = 0;
         while (iterator.hasNext()) {
-            String key = iterator.next();
-            User user = contacts.get(key);
-
-            System.out.println("Entry " + ++counter + ":\tKey: " + key + "\tValue: " + user.getFields());
+            User user = iterator.next();
+            System.out.println("Entry " + ++counter + ":\tKey: " + user.fields.get("Name") + "\tValue: " + user.getFields());
         }
 
         if (contacts.size() == 0) System.out.println("Database is empty!\n");
+    }
+
+    public User search(String name) {
+        Iterator<User> iterator = contacts.keySet().iterator();
+        name = validateName(name);
+        User tmp;
+        while (iterator.hasNext()) {
+            tmp = iterator.next();
+            if (tmp.fields.get("Name").equals(name)) return tmp;
+        }
+        throw new NoSuchElementException(name);
     }
 
     // For ease of adding several contacts 
