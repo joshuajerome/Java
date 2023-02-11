@@ -12,7 +12,6 @@ class Main {
             joshua.database.addNameFile("resources/sample.txt");
             joshua.database.addNameFile("resources/sample2.txt");
             joshua.database.search("dantE").setEmail("db@icloud.com");
-
         }
 
         joshua.database.printContacts();
