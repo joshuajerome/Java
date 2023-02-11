@@ -15,6 +15,8 @@ public class Event extends Database{
 
     private String name;
     private List<Occasion> occasions;
+    
+    public Event() {}
 
     public Event(String name) {
         this.name = name;
@@ -22,7 +24,6 @@ public class Event extends Database{
         // events.put(this.name,members);
     }
 
-    public Event() {}
     
 
 }

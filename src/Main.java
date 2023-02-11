@@ -14,4 +14,8 @@ class Main {
         }
         database.printContacts();
     }
+
+    // private static User createUser() {
+
+    // }
 }

@@ -8,7 +8,9 @@ public class Occasion extends Event {
     private int memberCount = 0;
     private int adminCount = 0;
 
-    public Occasion() {}
+    public Occasion(String name) {
+        this.name = name;
+    }
 
 
 }

@@ -5,7 +5,7 @@ import java.io.*;
 
 public class Database {
     
-    protected HashMap<String, List<String>> contacts;
+    protected HashMap<String, User> contacts;
     protected HashMap<String, List<Occasion>> events;
     protected HashMap<User, Double> transaction_balance;
 
@@ -15,22 +15,23 @@ public class Database {
     }
 
     public void addContact(String input) {
-        String user = Character.toString(input.charAt(0)) + input.substring(1).toLowerCase();
-        if (contacts.containsKey(user)) {
+        User user = new User(input);
+        String name = user.toString();
+        if (contacts.containsKey(name)) {
             System.out.println(user + " already exists in database!\n");
             return;   
         }
-        contacts.put(user, new ArrayList<>());
-        // need to create a User
+        contacts.put(name, user);
     }
 
     public void deleteContact(String input) {
-        String user = Character.toString(input.charAt(0)) + input.substring(1).toLowerCase();
-        if (!contacts.containsKey(user)) {
+        User user = new User(input);
+        String name = user.toString();
+        if (!contacts.containsKey(name)) {
             System.out.println("Database does not contain: " + user + "!\n");   
             return;
         }
-        contacts.remove(user);
+        contacts.remove(name);
     }
 
     public void clearContacts() {
@@ -42,12 +43,9 @@ public class Database {
         int counter = 0;
         while (iterator.hasNext()) {
             String key = iterator.next();
-            List<String> value = contacts.get(key);
-            
-            StringBuilder sb = new StringBuilder();
-            value.forEach(sb::append);
+            User user = contacts.get(key);
 
-            System.out.println("Entry " + ++counter + ":\tKey: " + key + "\tValue: " + sb.toString());
+            System.out.println("Entry " + ++counter + ":\tKey: " + key + "\tValue: " + user.getFields());
         }
 
         if (contacts.size() == 0) System.out.println("Database is empty!\n");
