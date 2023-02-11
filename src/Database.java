@@ -25,13 +25,11 @@ public class Database {
     }
 
     public void deleteContact(String input) {
-        User user = new User(input);
-        String name = user.toString();
-        if (!contacts.containsKey(name)) {
-            System.out.println("Database does not contain: " + user + "!\n");   
+        if (!contacts.containsKey(input)) {
+            System.out.println("Database does not contain: " + input + "!\n");   
             return;
         }
-        contacts.remove(name);
+        contacts.remove(input);
     }
 
     public void clearContacts() {
