@@ -51,7 +51,7 @@ public class Database extends User {
         if (contacts.size() == 0) System.out.println("Database is empty!\n");
     }
 
-    public User search(String name) {
+    public User searchUser(String name) {
         Iterator<User> iterator = contacts.keySet().iterator();
         name = validateName(name);
         User tmp;
@@ -60,11 +60,6 @@ public class Database extends User {
             if (tmp.fields.get("Name").equals(name)) return tmp;
         }
         throw new NoSuchElementException(name);
-    }
-
-    public void createEvent(String name) {
-        Event event = new Event(name);
-        events.put(event, name);
     }
 
     // For ease of adding several contacts 
@@ -88,6 +83,24 @@ public class Database extends User {
             }
         }
         return resultStringBuilder.toString();
+    }
+
+    /* EVENT FUNCTIONS */
+
+    public void createEvent(String name) {
+        Event event = new Event(name);
+        events.put(event, name);
+        event.members.add(this);
+    }
+
+    public Event getEvent(String name) {
+        Iterator<Event> iterator = events.keySet().iterator();
+        Event curr;
+        while (iterator.hasNext()) {
+            curr = iterator.next();
+            if (curr.getName().equals(name)) return curr;
+        }
+        throw new NoSuchElementException(name);
     }
 
 }

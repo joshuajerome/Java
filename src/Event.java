@@ -1,4 +1,5 @@
 package src;
+import java.io.*;
 import java.util.*;
 
 public class Event extends Database{
@@ -15,13 +16,40 @@ public class Event extends Database{
 
     private String name;
     protected List<Occasion> occasions;
+    protected List<User> members;
     
     public Event() {}
 
     public Event(String name) {
         this.name = name;
         occasions = new ArrayList<>();
+        members = new ArrayList<>();
     }
+
+    public boolean addMember(String name) {
+        try {
+            members.add(searchUser(name));
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void printMembers() {
+        StringBuilder sb = new StringBuilder();
+        members.forEach(sb::append);
+        System.out.println(sb.toString());
+    }
+
+    
+
+
+
+
 
     
 

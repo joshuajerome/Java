@@ -6,13 +6,14 @@ public class User {
     protected HashMap<String, String> fields;
     protected Database database;
 
+    /* GENERAL USER FUNCTIONS */
+
     public User() {}
     
     public User(String name) {
         database = new Database();
         fields = new HashMap<>();
         setName(name);
-        // database.contacts.put(this, fields);
     }
 
     public String getFields() {
