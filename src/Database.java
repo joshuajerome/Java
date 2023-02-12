@@ -6,7 +6,7 @@ import java.io.*;
 public class Database extends User {
     
     protected HashMap<User, HashMap<String, String>> contacts;
-    protected HashMap<String, List<Occasion>> events;
+    protected HashMap<Event, String> events;
     protected HashMap<User, Double> transaction_balance;
 
     public Database() {
@@ -28,7 +28,7 @@ public class Database extends User {
         input = validateName(input);
         while (iterator.hasNext()) {
             User tmp = iterator.next();
-            if (tmp.toString().equals(input)) {
+            if (tmp.fields.get("Name").equals(input)) {
                 contacts.remove(tmp);
                 return;
             }
@@ -60,6 +60,11 @@ public class Database extends User {
             if (tmp.fields.get("Name").equals(name)) return tmp;
         }
         throw new NoSuchElementException(name);
+    }
+
+    public void createEvent(String name) {
+        Event event = new Event(name);
+        events.put(event, name);
     }
 
     // For ease of adding several contacts 

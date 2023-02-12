@@ -14,14 +14,13 @@ public class Event extends Database{
     */
 
     private String name;
-    private List<Occasion> occasions;
+    protected List<Occasion> occasions;
     
     public Event() {}
 
     public Event(String name) {
         this.name = name;
-        // members = new ArrayList<>();
-        // events.put(this.name,members);
+        occasions = new ArrayList<>();
     }
 
     
