@@ -12,7 +12,7 @@ public class User {
         database = new Database();
         fields = new HashMap<>();
         setName(name);
-        database.contacts.put(this, fields);
+        // database.contacts.put(this, fields);
     }
 
     public String getFields() {

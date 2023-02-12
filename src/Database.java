@@ -20,7 +20,7 @@ public class Database extends User {
             System.out.println(user + " already exists in database!\n");
             return;   
         }
-        contacts.put(user,new HashMap<>());
+        contacts.put(user,fields);
     }
 
     public void deleteContact(String input) {
@@ -63,7 +63,7 @@ public class Database extends User {
     }
 
     // For ease of adding several contacts 
-    public void addNameFile(String filename) {
+    public void addContactFile(String filename) {
         try {
             FileInputStream fis = new FileInputStream(filename);
             readFromInputStream(fis);
