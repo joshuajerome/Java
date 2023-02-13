@@ -12,7 +12,7 @@ class Main {
         joshua.database.addContactFile("resources/sample.txt");
 
         // joshua.database.searchUser("Suvass").setName("Raghav");
-        joshua.database.deleteContact("Gautam");
+        // joshua.database.deleteContact("Gautam");
 
         joshua.database.createEvent("Dinner");
 
