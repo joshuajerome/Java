@@ -10,11 +10,14 @@ class Main {
     private static void run() {
         User joshua = new User("joshua");
         joshua.database.addContactFile("resources/sample.txt");
-        // joshua.database.search("Suvass").setPhone("0987654321");
+
+        // joshua.database.searchUser("Suvass").setName("Raghav");
         // joshua.database.deleteContact("Gautam");
+
         joshua.database.createEvent("Dinner");
-        System.out.println(joshua.database.getEvent("Dinner").addMember("Gautam"));
-        joshua.database.getEvent("Dinner").printMembers();
+
+        // System.out.println(joshua.database.getEvent("Dinner").addMember("Gautam"));
+        // joshua.database.getEvent("Dinner").printMembers();
 
         User dante = new User("dante");
         dante.database.addContactFile("resources/sample2.txt");

@@ -10,6 +10,7 @@ public class Occasion extends Event {
 
     public Occasion(String name) {
         this.name = name;
+        occasions.add(this);
     }
 
 

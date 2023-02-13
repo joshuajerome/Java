@@ -5,9 +5,9 @@ import java.io.*;
 
 public class Database extends User {
     
-    protected HashMap<User, HashMap<String, String>> contacts;
-    protected HashMap<Event, String> events;
-    protected HashMap<User, Double> transaction_balance;
+    protected HashMap<User, HashMap<String, String>> contacts;  // User, [Name of Field, Actual Field]
+    protected HashMap<Event, String> events;                    // 
+    protected HashMap<User, Double> transaction_balance;        // 
 
     public Database() {
         contacts = new HashMap<>();
@@ -57,7 +57,7 @@ public class Database extends User {
         User tmp;
         while (iterator.hasNext()) {
             tmp = iterator.next();
-            if (tmp.fields.get("Name").equals(name)) return tmp;
+            if (tmp.fields.get("Name").equals(name)) return tmp; // contains value method
         }
         throw new NoSuchElementException(name);
     }

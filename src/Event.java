@@ -39,6 +39,11 @@ public class Event extends Database{
         return this.name;
     }
 
+    public Occasion creatOccasion(String name) {
+        Occasion occasion = new Occasion(name);
+        return occasion;
+    }
+
     public void printMembers() {
         StringBuilder sb = new StringBuilder();
         members.forEach(sb::append);
