@@ -11,7 +11,7 @@ class Main {
         User joshua = new User("joshua");
         joshua.database.addContactFile("resources/sample.txt");
 
-        // joshua.database.searchUser("Suvass").setName("Raghav");
+        joshua.database.searchUser("Suvass").setName("Raghav");
         // joshua.database.deleteContact("Gautam");
 
         joshua.database.createEvent("Dinner");
