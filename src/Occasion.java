@@ -12,6 +12,8 @@ public class Occasion extends Event {
         this.name = name;
         occasions.add(this);
     }
+
+    public Occasion() {}
     
 
 }
