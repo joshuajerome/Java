@@ -1,6 +1,8 @@
 package src;
 import java.util.*;
 
+// Remove this comment later
+//
 public class User {
     
     protected HashMap<String, String> fields;
