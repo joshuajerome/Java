@@ -12,7 +12,7 @@ public class Calculator extends Occasion {
 
     /* Functionality:   Calculates sum of a list
      * Implementation:  Computing sum of sub arrays and original input
-     * Pre-Condition:   List is a non-null non-empty list of values
+     * Pre-Condition:   List is a non-null non-empty list of values,
      *                  each of which are > 0.0
      * Post-Condition:  Returns the sum of all values in list
      */
@@ -24,6 +24,48 @@ public class Calculator extends Occasion {
         return sum;
     }
 
+    /* Functionality:   Given a number, truncate to n decimal places
+     * Implementation:  For a cost with recurring decimal values, truncate it
+     * Pre-Condition:   number > 0 and has n decimal places
+     * Post-Condition:  truncated number is returned
+     */
+    private double truncate(double number, int n) {
+        double multFactor = Math.pow(10,n);
+        int intRep = (int)(number * multFactor);
+        return intRep/multFactor;
+    }
+
+    private double roundTo(double number, int n) {
+        double multFactor = Math.pow(10,n+1);
+        int intRep = (int)(number * multFactor);
+        if (intRep % 10 > 4) {
+            intRep /= 10;
+            intRep++;
+        } else {
+            intRep /= 10;
+        }
+        multFactor = Math.pow(10,n);
+        return intRep/multFactor;
+    }
+
+    /* Functionality:   Given a number with 'n' decimal places, return the last digit
+     * Implementation:  In expected(), find the remainder value that will be added to
+     *                  select values of baseAvg so that total cost is hit
+     * Pre-Condition:   Number is some positive number (works regardless), n > 0
+     * Post-Condition:  Double to be used as a divisor in expected()
+     */
+    private double getDivisor(double number, int n) {
+        double multFactor = Math.pow(10,n);
+        int intRep = (int)(number * multFactor);
+        n = -1 * n;
+        while (intRep > 0) {
+            if (intRep % 10 > 0) return Math.pow(10,n);
+            intRep /= 10;
+            n++;
+        }
+        return 0.0;
+    }
+
     /* Functionality:   Specific
      * Implementation:  For a given totalCost and k subarrays, calculate
      *                  the expected cost for each subarray. That is, the
@@ -33,36 +75,81 @@ public class Calculator extends Occasion {
      *                  the total cost for each subarray.
      */
     private List<Double> expected(double totalCost, int k) {
-        List<Double> expectedValues = new ArrayList<>();                        /* (Returned) List of expected values for each sub array */
-        double rawAvg = totalCost/k;                                          /* Stores the raw base expected value for each sub array */
-        int tmp = (int)(rawAvg * 100.0);
-        double avgValue = tmp/100.0;
-        double remainder;
+        List<Double> expectedValues = new ArrayList<>();                            /* (Returned) List of expected values for each sub array */
 
-        for (int i = 0; i < k; i++) {                                           /* Fills expectedValues with the respective expected values */
-            expectedValues.add(avgValue);
-            double runningSum = 0.0;
+        double baseAvg = truncate(totalCost/k,2);                                /* Computes the baseAvg that each value in sub array will hold */
 
+        /* k * baseAvg gives the sum of all the baseAvgs in this array
+         * Depending on if the split was clean, this may not be equal to totalCost,
+         * So, we get the place of the least significant digit in the baseAvg, and 
+         * increment that place by one until the totalCost is hit. remainder is the 
+         * number of times this incrementation must be performed.
+         */
+        double remainder = roundTo(totalCost - (k * baseAvg),2);
+        double remainderSplit = getDivisor(baseAvg, 2);
+
+        for (int i = 0; i < k; i++) {                                               /* Fills expectedValues with the respective expected values */
+            expectedValues.add(roundTo((remainder/remainderSplit > 0)? baseAvg + remainderSplit : baseAvg, 2));
+            remainder -= remainderSplit;
         }
         return expectedValues;
     }
 
-    /* Functionality:   Primariy function for bill splitting
+    /* Functionality:   Generates 'k' sub arrays such that the sum of all values in each 
+                        sub array approaches allCosts / k.
      * Implementation:  
      * Pre-Condition:   
      * Post-Condition:  
      */
-    public List<List<Double>> split(List<Double> allCosts, int k) {
+    private List<List<Double>> generateSubArrays(List<Double> allCosts, int k) {
         List<List<Double>> subArrays = new ArrayList<>();
+        Collections.sort(allCosts);
+
+        double totalCost = sumList(allCosts);
+        List<Double> kExpected = expected(totalCost, k);
+
+        int upperEnd = allCosts.size() - 1, lowerEnd = 0;
         
-        int n = allCosts.size();
-        double allCostsSum = sumList(allCosts);
-        // List<Integer> kExpected = expected(allCostsSum, k);
-        List<Double> kActual;
+        for (int i = 0; i < kExpected.size(); i++) {                                /* O(k) */
+            List<Double> sub = new ArrayList<>();
+            sub.add(allCosts.get(upperEnd));
 
+            double minDiff = Math.abs(kExpected.get(i) - sumList(sub));
 
-
+            while (lowerEnd < upperEnd) {
+                sub.add(allCosts.get(lowerEnd));
+                double diff = Math.abs(kExpected.get(i) - sumList(sub));
+                double minDiffIndex = lowerEnd;
+                if (diff < minDiff) { // work on this if else block.
+                    minDiffIndex = lowerEnd;
+                    minDiff = diff;
+                    lowerEnd++;
+                } else {
+                    sub.remove(sub.size() - 1);
+                    break;
+                }
+            }
+            upperEnd--;
+            subArrays.add(sub);
+        }
         return subArrays;
     }
+
+    public String printSubArrays(List<Double> allCosts, int k) {
+        List<List<Double>> list = generateSubArrays(allCosts, k);
+        StringBuilder sb = new StringBuilder();
+        list.add(expected(sumList(allCosts),k));
+        for (List<Double> l : list) {
+            sb.append("[");
+            for (Double d : l) {
+                sb.append(d + ",\t");
+            }
+            sb.replace(sb.length() - 1, sb.length(), "]");
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+
 
 }
