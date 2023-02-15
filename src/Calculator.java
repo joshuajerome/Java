@@ -115,17 +115,19 @@ public class Calculator extends Occasion {
             sub.add(allCosts.get(upperEnd));
 
             double minDiff = Math.abs(kExpected.get(i) - sumList(sub));
-
+            int minDiffIndex = lowerEnd;
+            
             while (lowerEnd < upperEnd) {
                 sub.add(allCosts.get(lowerEnd));
                 double diff = Math.abs(kExpected.get(i) - sumList(sub));
-                double minDiffIndex = lowerEnd;
                 if (diff < minDiff) { // work on this if else block.
                     minDiffIndex = lowerEnd;
                     minDiff = diff;
                     lowerEnd++;
+                    sub.remove(sub.size() - 1);
                 } else {
                     sub.remove(sub.size() - 1);
+                    sub.add(allCosts.get(minDiffIndex));
                     break;
                 }
             }
