@@ -7,6 +7,9 @@ class Main {
         run();
     }
 
+    /**
+     * 
+     */
     private static void run() {
         User joshua = new User("joshua");
         joshua.database.addContactFile("resources/sample.txt");

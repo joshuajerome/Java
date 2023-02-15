@@ -103,34 +103,21 @@ public class Calculator extends Occasion {
      */
     private List<List<Double>> generateSubArrays(List<Double> allCosts, int k) {
         List<List<Double>> subArrays = new ArrayList<>();
+        HashSet<Integer> added = new HashSet<>();
+        
         Collections.sort(allCosts);
-
         double totalCost = sumList(allCosts);
         List<Double> kExpected = expected(totalCost, k);
 
         int upperEnd = allCosts.size() - 1, lowerEnd = 0;
         
-        for (int i = 0; i < kExpected.size(); i++) {                                /* O(k) */
+        for (int i = 0; i < k; i++) {                                /* O(k) */
             List<Double> sub = new ArrayList<>();
             sub.add(allCosts.get(upperEnd));
-
             double minDiff = Math.abs(kExpected.get(i) - sumList(sub));
-            int minDiffIndex = lowerEnd;
             
-            while (lowerEnd < upperEnd) {
-                sub.add(allCosts.get(lowerEnd));
-                double diff = Math.abs(kExpected.get(i) - sumList(sub));
-                if (diff < minDiff) { // work on this if else block.
-                    minDiffIndex = lowerEnd;
-                    minDiff = diff;
-                    lowerEnd++;
-                    sub.remove(sub.size() - 1);
-                } else {
-                    sub.remove(sub.size() - 1);
-                    sub.add(allCosts.get(minDiffIndex));
-                    break;
-                }
-            }
+            
+
             upperEnd--;
             subArrays.add(sub);
         }
