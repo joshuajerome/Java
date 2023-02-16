@@ -35,6 +35,11 @@ public class Calculator extends Occasion {
         return intRep/multFactor;
     }
 
+    /* Functionality:   Round a given number to the nth decimal place 
+     * Implementation:  For a cost with recurring decimal values, round it
+     * Pre-Condition:   Number is a double with at least n+1 decimal values
+     * Post-Condition:  Return the rounded number 
+    */
     private double roundTo(double number, int n) {
         double multFactor = Math.pow(10,n+1);
         int intRep = (int)(number * multFactor);
@@ -96,10 +101,23 @@ public class Calculator extends Occasion {
     }
 
     /* Functionality:   Generates 'k' sub arrays such that the sum of all values in each 
-                        sub array approaches allCosts / k.
-     * Implementation:  
-     * Pre-Condition:   
-     * Post-Condition:  
+                        sub array approaches allCosts / k
+     * Implementation:  Places each cost from allCosts in one of the k subarrays such that 
+     *                  the sum of each subarray is approximately allCosts/k
+     *                  
+     *                  Steps:
+     *                  1. Instantiate:
+     *                      a. List<List<Double>> subArrays; in which all sub arrays are stored
+     *                      b. List<Double> sub; to which each element is added, stored into subArray, then cleared
+     *                      c. HashSet<Integer> added; to track which elements from allCosts have 
+     *                         been stored in subArrays
+     *                  2. Sort allCosts and determine the totalCost by accumulating allCosts
+     *                  3. Instantiate List<Double> kExpected; which creates a list of the expected costs per subarray
+     *                  4. Intialize an upperEnd to keep track of the last (greatest) element in allCosts
+     *                  For the rest of the steps, see comments within generateSubArrays(); 
+     * 
+     * Pre-Condition:   allCosts is a non-null non-empty list of double vales; k is a positive integer
+     * Post-Condition:  returns subarrays from allCosts that fulfills the functionality.
      */
     private List<List<Double>> generateSubArrays(List<Double> allCosts, int k) {
         List<List<Double>> subArrays = new ArrayList<>();
@@ -111,28 +129,31 @@ public class Calculator extends Occasion {
 
         int upperEnd = allCosts.size() - 1;
         
-        for (int i = 0; i < k; i++) {                                /* O(k*n^2) */
+        for (int i = 0; i < k; i++) {                                                               /* For each subArray... */                            
             List<Double> sub = new ArrayList<>();
-            sub.add(allCosts.get(upperEnd));
-            added.add(upperEnd);
-
-            double minDiff = Math.abs(kExpected.get(i) - sumList(sub));
-
-            for (int h = 0; h < upperEnd; h++) {
-                int potential = upperEnd;
-                for (int j = 0; j < upperEnd; j++) {
-                    if (!added.contains(j)) {
-                        double diff = Math.abs(kExpected.get(i) - sumList(sub) - allCosts.get(j));
-                        if (diff < minDiff) {
-                            minDiff = diff;
-                            potential = j;
+            sub.add(allCosts.get(upperEnd));                                                        /* Add the greatest value from allCosts to subArray */
+            added.add(upperEnd);                                                                    /* Add the index of the greatest value into 'added' hashSet 
+                                                                                                       to ensure it's only used once */
+            double minDiff = Math.abs(kExpected.get(i) - sumList(sub));                             /* Calculate the min difference by taking the absolute value of 
+                                                                                                       the difference between the expected value of the current subarray 
+                                                                                                       and the sum of the current subarray (which is just upperEnd at this point) */
+            for (int h = 0; h < upperEnd; h++) {                                                    /* Loop through each value in allCosts */
+                int potential = upperEnd;                                                           /* Create a potential value and assign it to upperEnd. Will revisit potential later */
+                for (int j = 0; j < upperEnd; j++) {                                                /* Loop through each value in allCosts again! See bottom of function for explanation */
+                    if (!added.contains(j)) {                                                       
+                        double diff = Math.abs(kExpected.get(i) - sumList(sub) - allCosts.get(j));  /* calculate the current difference which is absolute value of 
+                                                                                                       the expected sum - sum of the current subArray - the cost being compared */
+                        if (diff < minDiff) {                                                      
+                            minDiff = diff;                                                         
+                            potential = j;                                                          /* The value at index 'j' is now a potential target to add into the current subarray */
                         } else {
-                            break;
+                            break;                                                                  /* Otherwise, I don't care about this value, just move on to next value */
                         }
                     }
                 }
-                if (potential != upperEnd) {
-                    sub.add(allCosts.get(potential));
+                if (potential != upperEnd) {                                                        /* If my potential is not UpperEnd, then I have compared all remaining values and
+                                                                                                       found one such that the sum of the current list is closer to my expected sum */
+                    sub.add(allCosts.get(potential));                                               
                     added.add(potential);
                 }
             }
@@ -141,8 +162,12 @@ public class Calculator extends Occasion {
         }
         return subArrays;
     }
+    /* The values in total cost is looped through twice creating a time complexity of O(n^2). The inner-most loop is to find a new value to add to my current subarray 
+     * The outer-loop that increment h from h = 0 while h < upperEnd, is to check if any MORE values can be added into the same sub array. Without this nested check,
+     * each subarray would only have a max size of 2 - as one potential would be added, and then the subarray would be stored then cleared.
+    */
 
-
+    /* Prints all the generated subarrays */
     public String printSubArrays(List<Double> allCosts, int k) {
         List<List<Double>> list = generateSubArrays(allCosts, k);
         StringBuilder sb = new StringBuilder();
