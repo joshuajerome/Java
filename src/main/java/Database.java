@@ -1,4 +1,4 @@
-package src;
+package src.main.java;
 
 import java.util.*;
 import java.io.*;
@@ -14,13 +14,14 @@ public class Database extends User {
         events = new HashMap<>();
     }
 
-    public void addContact(String input) {
+    public User addContact(String input) {
         User user = new User(input);
         if (contacts.containsKey(user)) {
             System.out.println(user + " already exists in database!\n");
-            return;   
+            return user;
         }
         contacts.put(user,fields);
+        return user;
     }
 
     public void deleteContact(String input) {
@@ -45,7 +46,7 @@ public class Database extends User {
         int counter = 0;
         while (iterator.hasNext()) {
             User user = iterator.next();
-            System.out.println("Entry " + ++counter + ":\tKey: " + user.fields.get("Name") + "\tValue: " + user.getFields());
+            System.out.println("Entry " + ++counter + ":\tKey: " + user.fields.get("Name") + "\tValue: " + user.printFields());
         }
 
         if (contacts.size() == 0) System.out.println("Database is empty!\n");
@@ -60,29 +61,6 @@ public class Database extends User {
             if (tmp.fields.get("Name").equals(name)) return tmp; // contains value method
         }
         throw new NoSuchElementException(name);
-    }
-
-    // For ease of adding several contacts 
-    public void addContactFile(String filename) {
-        try {
-            FileInputStream fis = new FileInputStream(filename);
-            readFromInputStream(fis);
-            fis.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String readFromInputStream(InputStream inputStream) throws IOException {
-        StringBuilder resultStringBuilder = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                addContact(line);
-                resultStringBuilder.append(line).append("\n");
-            }
-        }
-        return resultStringBuilder.toString();
     }
 
     /* EVENT FUNCTIONS */

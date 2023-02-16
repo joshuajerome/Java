@@ -1,4 +1,4 @@
-package src;
+package src.main.java;
 import java.util.*;
 
 // Remove this comment later
@@ -16,9 +16,10 @@ public class User {
         database = new Database();
         fields = new HashMap<>();
         setName(name);
+        database.contacts.put(this, fields);
     }
 
-    public String getFields() {
+    public String printFields() {
         StringBuilder sb = new StringBuilder();
         sb.append("\t\tName:\t" + fields.get("Name"));
         sb.append("\t\tPhone:\t" + fields.get("Phone"));

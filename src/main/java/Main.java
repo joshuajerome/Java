@@ -1,4 +1,4 @@
-package src;
+package src.main.java;
 import java.util.*;
 
 class Main {
@@ -9,7 +9,11 @@ class Main {
 
     private static void run() {
         User joshua = new User("joshua");
-        joshua.database.addContactFile("resources/sample.txt");
+        joshua.database.addContact("Asher").setEmail("Asher@gmail.com");
+        joshua.setPhone("9356403186");
+        joshua.setEmail("joshua.jerome@gmail.com");
+        joshua.setName("Sherwin");
+        joshua.database.printContacts();
 
         Calculator c = new Calculator();
         Double array1[] = new Double[] {7.0,11.0,13.0,9.0,41.0,37.0,23.0,29.0,43.0}; // 53.25 split by 4
