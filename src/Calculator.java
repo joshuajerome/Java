@@ -106,6 +106,11 @@ public class Calculator extends Occasion {
         HashSet<Integer> added = new HashSet<>();
         
         Collections.sort(allCosts);
+        for (double d : allCosts) {
+            System.out.print(d + ",\t");
+        }
+        System.out.println();
+
         double totalCost = sumList(allCosts);
         List<Double> kExpected = expected(totalCost, k);
 
@@ -114,10 +119,28 @@ public class Calculator extends Occasion {
         for (int i = 0; i < k; i++) {                                /* O(k) */
             List<Double> sub = new ArrayList<>();
             sub.add(allCosts.get(upperEnd));
-            double minDiff = Math.abs(kExpected.get(i) - sumList(sub));
-            
-            
+            added.add(upperEnd);
 
+            double minDiff = Math.abs(kExpected.get(i) - sumList(sub));
+
+            for (int h = 0; h < upperEnd; h++) {
+                int potential = upperEnd;
+                for (int j = 0; j < upperEnd; j++) {
+                    if (!added.contains(j)) {
+                        double diff = Math.abs(kExpected.get(i) - sumList(sub) - allCosts.get(j));
+                        if (diff < minDiff) {
+                            minDiff = diff;
+                            potential = j;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+                if (potential != upperEnd) {
+                    sub.add(allCosts.get(potential));
+                    added.add(potential);
+                }
+            }
             upperEnd--;
             subArrays.add(sub);
         }
@@ -134,6 +157,7 @@ public class Calculator extends Occasion {
                 sb.append(d + ",\t");
             }
             sb.replace(sb.length() - 1, sb.length(), "]");
+            sb.append("\tSum =\t" + sumList(l));
             sb.append("\n");
         }
         return sb.toString();
