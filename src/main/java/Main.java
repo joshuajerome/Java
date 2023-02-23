@@ -8,6 +8,9 @@ class Main {
     }
 
     private static void run() {
+
+        /* Todo: Add a build tool, create JUnit tests */
+
         User joshua = new User("joshua");
         joshua.database.addContact("Asher").setEmail("Asher@gmail.com");
         joshua.setPhone("9356403186");
