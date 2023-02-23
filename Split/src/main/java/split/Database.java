@@ -25,7 +25,7 @@ public class Database extends User {
 
     public void deleteContact(String input) {
         Iterator<User> iterator = contacts.keySet().iterator();
-        input = validateName(input);
+        input = formatString(input);
         while (iterator.hasNext()) {
             User tmp = iterator.next();
             if (tmp.fields.get("Name").equals(input)) {
@@ -53,7 +53,7 @@ public class Database extends User {
 
     public User searchUser(String name) {
         Iterator<User> iterator = contacts.keySet().iterator();
-        name = validateName(name);
+        name = formatString(name);
         User tmp;
         while (iterator.hasNext()) {
             tmp = iterator.next();

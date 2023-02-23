@@ -1,8 +1,6 @@
 package split;
 import java.util.*;
 
-// Remove this comment later
-//
 public class User {
     
     protected HashMap<String, String> fields;
@@ -19,42 +17,46 @@ public class User {
         database.contacts.put(this, fields);
     }
 
+    public void addField(String key, String value) {
+        key = formatString(key);
+        if (!fields.containsKey(key)) {
+            fields.put(key,value);
+        }
+    }
+    
     public String printFields() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\t\tName:\t" + fields.get("Name"));
-        sb.append("\t\tPhone:\t" + fields.get("Phone"));
-        sb.append("\t\tEmail:\t" + fields.get("Email"));
+        Iterator<String> iterator = fields.keySet().iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            sb.append("\t\t" + key + ":\t" + fields.get(key));
+        }
         return sb.toString();
     }
 
+    /* BASIC USER FIELDS */
+
     public boolean setName(String input) {
         Iterator<User> iterator = database.contacts.keySet().iterator();
-        input = validateName(input);
+        input = formatString(input);
         while (iterator.hasNext()) {
             User tmp = iterator.next();
-            if (tmp.fields.get("Name").equals(input)) {
+            if (tmp.fields.get("name").equals(input)) {
                 return false;
             }
         }
-        fields.put("Name",input);
+        fields.put("name",input);
         return true;
     }
 
-    protected String validateName(String input) {
-        StringBuilder valid = new StringBuilder();
-        valid.append(Character.toString(input.toUpperCase().charAt(0)));
-        valid.append(input.substring(1).toLowerCase());
-        return valid.toString();
-    }
-
     public boolean setEmail(String email) {
-        fields.put("Email", email);
+        fields.put("email", email);
         return true;
     }
 
     public boolean setPhone(String phone) {
         if (validatePhone(phone).length() != 0) {
-            fields.put("Phone", phone);
+            fields.put("phone", phone);
             return true;
         }
         return false;
@@ -68,6 +70,15 @@ public class User {
             }
         }
         if (valid.length() != 10) return "";        
+        return valid.toString();
+    }
+
+    /* FORMATTING FUNCTIONS */
+
+    protected String formatString(String input) {
+        StringBuilder valid = new StringBuilder();
+        valid.append(Character.toString(input.toUpperCase().charAt(0)));
+        valid.append(input.substring(1).toLowerCase());
         return valid.toString();
     }
 

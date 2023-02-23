@@ -12,10 +12,10 @@ class Main {
         /* Todo: Add a build tool, create JUnit tests */
 
         User joshua = new User("joshua");
-        joshua.database.addContact("Asher").setEmail("Asher@gmail.com");
+        joshua.database.addContact("Asher");
         joshua.setPhone("9356403186");
-        joshua.setEmail("joshua.jerome@gmail.com");
         joshua.setName("Sherwin");
+        joshua.addField("Age", "20");
         joshua.database.printContacts();
 
         Calculator c = new Calculator();
