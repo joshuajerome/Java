@@ -30,7 +30,7 @@ git clone https://git@github.com/joshuajerome/Java.git
 ```
 gradle clean build
 ```
-4. Run Unit Test Cases:
+3. Run Unit Test Cases:
 ```
 gradle -PmainClass=split.Main run
 ```
