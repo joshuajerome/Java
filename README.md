@@ -12,6 +12,21 @@ Split is an ios-app that allows users to manage trip expenses. Fundementally, Sp
 
 ### Functionality
 
+### Run Split In VSCode
+
+#### Setup
+1. Clone this repo: ```git clone https://git@github.com/joshuajerome/Java.git```
+2. Open cloned folder in VSCode.
+3. Re-open folder in provided dev-container.
+>__Note__
+>_Docker Desktop should be running and Dev Container extension must be installed in VSCode_
+
+#### Testing
+1. Open a terminal window within VSCode, and ```cd``` to Split
+2. Compile Split: ```gradle clean build```
+3. Run Unit Test Cases: ```gradle -PmainClass=split.Main run```
+
+
 
 
 
