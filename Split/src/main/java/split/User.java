@@ -6,6 +6,8 @@ public class User {
     protected HashMap<String, String> fields;
     protected Database database;
 
+    protected int userHash = this.hashCode();
+
     /* GENERAL USER FUNCTIONS */
 
     public User() {}
@@ -13,7 +15,7 @@ public class User {
     public User(String name) {
         database = new Database();
         fields = new HashMap<>();
-        setName(name);
+        addField("Name",formatString(name));
         database.contacts.put(this, fields);
     }
 
@@ -21,6 +23,14 @@ public class User {
         key = formatString(key);
         if (!fields.containsKey(key)) {
             fields.put(key,value);
+        }
+    }
+
+    public void editField(String key, String newValue) {
+        key = formatString(key);
+        newValue = formatString(newValue);
+        if (fields.containsKey(key)) {
+            fields.replace(key, newValue);
         }
     }
     
@@ -32,45 +42,6 @@ public class User {
             sb.append("\t\t" + key + ":\t" + fields.get(key));
         }
         return sb.toString();
-    }
-
-    /* BASIC USER FIELDS */
-
-    public boolean setName(String input) {
-        Iterator<User> iterator = database.contacts.keySet().iterator();
-        input = formatString(input);
-        while (iterator.hasNext()) {
-            User tmp = iterator.next();
-            if (tmp.fields.get("name").equals(input)) {
-                return false;
-            }
-        }
-        fields.put("name",input);
-        return true;
-    }
-
-    public boolean setEmail(String email) {
-        fields.put("email", email);
-        return true;
-    }
-
-    public boolean setPhone(String phone) {
-        if (validatePhone(phone).length() != 0) {
-            fields.put("phone", phone);
-            return true;
-        }
-        return false;
-    }
-
-    protected String validatePhone(String input) {
-        StringBuffer valid = new StringBuffer();
-        for (Character c : input.toCharArray()) {
-            if (Character.isDigit(c)) {
-                valid.append(c);
-            }
-        }
-        if (valid.length() != 10) return "";        
-        return valid.toString();
     }
 
     /* FORMATTING FUNCTIONS */

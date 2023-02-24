@@ -1,10 +1,9 @@
 package split;
 import java.util.*;
-import java.io.*;
 
 public class Database extends User {
     
-    protected HashMap<User, HashMap<String, String>> contacts;  // User, [Name of Field, Actual Field]
+    protected HashMap<User, HashMap<String, String>> contacts;  // user, user.fields
     protected HashMap<Event, String> events;                    // 
     protected HashMap<User, Double> transaction_balance;        // 
 
@@ -13,8 +12,8 @@ public class Database extends User {
         events = new HashMap<>();
     }
 
-    public User addContact(String input) {
-        User user = new User(input);
+    public User addContact(String name) {
+        User user = new User(name);
         if (contacts.containsKey(user)) {
             System.out.println(user + " already exists in database!\n");
             return user;

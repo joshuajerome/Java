@@ -13,9 +13,14 @@ class Main {
 
         User joshua = new User("joshua");
         joshua.database.addContact("Asher");
-        joshua.setPhone("9356403186");
-        joshua.setName("Sherwin");
-        joshua.addField("Age", "20");
+        joshua.addField("email","joshua.jerome@gmail.com");
+        joshua.editField("name", "sherwin");
+        joshua.editField("Age","21");
+
+        joshua.database.addContact("joshua");
+        joshua.database.addContact("sherwin");
+
+
         joshua.database.printContacts();
 
         Calculator c = new Calculator();
