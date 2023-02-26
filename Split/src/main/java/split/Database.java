@@ -14,10 +14,6 @@ public class Database extends User {
 
     public User addContact(String name) {
         User user = new User(name);
-        if (contacts.containsKey(user)) {
-            System.out.println(user + " already exists in database!\n");
-            return user;
-        }
         contacts.put(user,fields);
         return user;
     }
