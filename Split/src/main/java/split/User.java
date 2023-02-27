@@ -8,8 +8,6 @@ public class User {
     /* Each user has a database in which the user themself is stored along with user's contacts */
     protected Database database;
 
-    protected int userHash = this.hashCode();
-
     /* GENERAL USER FUNCTIONS */
 
     /* Default constructor required for super class initialization */
@@ -19,21 +17,23 @@ public class User {
     public User(String name) {
         database = new Database();
         fields = new HashMap<>();
-        addField("Name",formatString(name));
+        name = formatString(name); // if format string is deleted, delete this line
+        addField("Name",name);
         
-        /* Purpose of this line below is to add a User to it's own contact list 
+        /* Comment:
+         * Purpose of the line below is to add a User to it's own contact list 
          * when this constructor is called in Database.addContact(), 
          * the new user is added to it's own contact list AND is added to 'this' user's
          * contact list.
         */
-        database.contacts.put(this, fields);
+        database.users.add(this);
     }
 
     /* Generic addField function that allows user to specify a new field and value to add
      * to a user. User CANNOT add identical field names with different values.
      */
     public void addField(String key, String value) {
-        key = formatString(key);
+        key = formatString(key); // if format string is deleted, delete this line
         if (!fields.containsKey(key)) {
             fields.put(key,value);
         }
@@ -47,8 +47,14 @@ public class User {
             fields.replace(key, newValue);
         }
     }
+
+    /* Deletes a field */
+    public void deleteField(String key) {
+        key = formatString(key); // if format string si deleted, delete this line
+        fields.remove(key);
+    }
     
-    /* Prints all fields of a User */
+    /* Prints all fields of this User */
     public String printFields() {
         StringBuilder sb = new StringBuilder();
         Iterator<String> iterator = fields.keySet().iterator();
@@ -61,6 +67,7 @@ public class User {
 
     /* FORMATTING FUNCTIONS */
 
+    /* Formats a string by making the first character uppercase, and the rest lowercase */
     protected String formatString(String input) {
         StringBuilder valid = new StringBuilder();
         valid.append(Character.toString(input.toUpperCase().charAt(0)));

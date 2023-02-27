@@ -1,7 +1,7 @@
 package split;
 import java.util.*;
 
-public class Calculator extends Occasion {
+public class Calculator extends Event {
 
     /* Calculator Class
      * 
@@ -84,7 +84,8 @@ public class Calculator extends Occasion {
 
         double baseAvg = truncate(totalCost/k,2);                                /* Computes the baseAvg that each value in sub array will hold */
 
-        /* k * baseAvg gives the sum of all the baseAvgs in this array
+        /* Comment:
+         * k * baseAvg gives the sum of all the baseAvgs in this array
          * Depending on if the split was clean, this may not be equal to totalCost,
          * So, we get the place of the least significant digit in the baseAvg, and 
          * increment that place by one until the totalCost is hit. remainder is the 
