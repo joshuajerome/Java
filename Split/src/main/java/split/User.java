@@ -1,12 +1,13 @@
 package split;
 import java.util.*;
+import org.apache.commons.lang3.text.WordUtils;
 
 public class User {
     
     /* Fields map stores all fields that users can have such as: name, email, number, etc. */
-    protected HashMap<String, String> fields;
+    public HashMap<String, String> fields;
     /* Each user has a database in which the user themself is stored along with user's contacts */
-    protected Database database;
+    public Database database;
 
     /* GENERAL USER FUNCTIONS */
 
@@ -17,7 +18,7 @@ public class User {
     public User(String name) {
         database = new Database();
         fields = new HashMap<>();
-        name = formatString(name); // if format string is deleted, delete this line
+        name = WordUtils.capitalize(name); // if format string is deleted, delete this line
         addField("Name",name);
         
         /* Comment:
@@ -29,11 +30,16 @@ public class User {
         database.users.add(this);
     }
 
+    /* returns a handle to this user */
+    public User getUser() {
+        return this;
+    }
+
     /* Generic addField function that allows user to specify a new field and value to add
      * to a user. User CANNOT add identical field names with different values.
      */
     public void addField(String key, String value) {
-        key = formatString(key); // if format string is deleted, delete this line
+        key = WordUtils.capitalize(key); // if format string is deleted, delete this line
         if (!fields.containsKey(key)) {
             fields.put(key,value);
         }
@@ -41,8 +47,8 @@ public class User {
 
     /* Edits a current field and replaces it with a newValue */
     public void editField(String key, String newValue) {
-        key = formatString(key);
-        newValue = formatString(newValue);
+        key = WordUtils.capitalize(key);
+        newValue = WordUtils.capitalize(newValue);
         if (fields.containsKey(key)) {
             fields.replace(key, newValue);
         }
@@ -50,13 +56,17 @@ public class User {
 
     /* Deletes a field */
     public void deleteField(String key) {
-        key = formatString(key); // if format string si deleted, delete this line
+        key = WordUtils.capitalize(key); // if format string si deleted, delete this line
         fields.remove(key);
     }
     
     /* Prints all fields of this User */
     public String printFields() {
         StringBuilder sb = new StringBuilder();
+        if (fields == null) {
+            sb.append("null");   
+            return sb.toString();
+        }
         Iterator<String> iterator = fields.keySet().iterator();
         while (iterator.hasNext()) {
             String key = iterator.next();
@@ -68,11 +78,19 @@ public class User {
     /* FORMATTING FUNCTIONS */
 
     /* Formats a string by making the first character uppercase, and the rest lowercase */
+    /*
     protected String formatString(String input) {
         StringBuilder valid = new StringBuilder();
+        if (input.contains(" ")) {
+            int spaceIndex = input.indexOf(" ");
+            return formatString(input.substring(0, spaceIndex)) 
+            + " " + formatString(input.substring(spaceIndex + 1));
+        }
         valid.append(Character.toString(input.toUpperCase().charAt(0)));
         valid.append(input.substring(1).toLowerCase());
+        String s = new String();
         return valid.toString();
     }
+    */
 
 }
