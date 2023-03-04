@@ -38,39 +38,31 @@ class Main {
         User user1 = new User("joshua jerome");
         User user2 = new User("jerome purushotham");
 
-        // /* Testing addUser in Database */
-        // System.out.println("Testing addUser in Database:\n");
-        // user1.database.addUser(user2);
-        // System.out.println(user1.database.users.size());
-        // user1.database.printUsers();
+        /* Testing addUser in Database */
+        System.out.println("Testing addUser in Contacts:\n");
+        user1.addContact(user2);
+        user1.printContacts();
         
-        // /* Testing deleteUser in Database */
-        // System.out.println("Testing deleteUser in Database:\n");
-        // user1.database.deleteUser(user2);
-        // user1.database.printUsers();
+        /* Testing deleteUser in Database */
+        System.out.println("Testing deleteUser in Contacts:\n");
+        user1.deleteContact(user2);
+        user1.printContacts();
 
-        // /* Testing addField in User */
-        // System.out.println("Testing addField in User:\n");
-        // user1.addField("email", "joshua.jerome@gmail.com");
-        // user1.database.printUsers();
+        /* Testing addField in User */
+        System.out.println("Testing addField in User:\n");
+        user1.addField("email", "joshua.jerome@gmail.com");
+        user1.printContacts();
 
-        // /* Testing editField in User */
-        // System.out.println("Testing editField in User:\n");
-        // user1.editField("email", "sherwinjjerome@gmail.com");
-        // user1.database.printUsers();
+        /* Testing editField in User */
+        System.out.println("Testing editField in User:\n");
+        user1.editField("email", "sherwinjjerome@gmail.com");
+        user1.printContacts();
 
-        // /* Testing deleteField in User */
-        // System.out.println("Testing deleteField in User:\n");
-        // user1.deleteField("email");
-        // user1.database.printUsers();
+        /* Testing deleteField in User */
+        System.out.println("Testing deleteField in User:\n");
+        user1.deleteField("email");
+        user1.printContacts();
 
-        /* Testing trip creation */
-        System.out.println("Testing trip creation:\n");
-        // System.out.println(user1.printFields());
-        Trip trip = user1.database.createTrip("disney world");
-        // trip.addUser(user2);
-        System.out.println(trip.users.size());
-        trip.getTripDetails();
         
 
 

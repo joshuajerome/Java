@@ -1,7 +1,7 @@
 package split;
 import java.util.*;
 
-public class Calculator extends Event {
+public class Calculator {
 
     /* Calculator Class
      * 

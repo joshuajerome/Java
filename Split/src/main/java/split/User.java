@@ -4,22 +4,19 @@ import org.apache.commons.lang3.text.WordUtils;
 
 public class User {
     
-    /* Fields map stores all fields that users can have such as: name, email, number, etc. */
-    public HashMap<String, String> fields;
+    private String name;
+    /* Fields map stores all fields that users can have such as: email, number, etc. */
+    private HashMap<String, String> fields;
     /* Each user has a database in which the user themself is stored along with user's contacts */
-    public Database database;
+    private List<User> contacts;
 
     /* GENERAL USER FUNCTIONS */
-
-    /* Default constructor required for super class initialization */
-    public User() {}
     
     /* Primariy constructor for User, assigns field name */
     public User(String name) {
-        database = new Database();
         fields = new HashMap<>();
-        name = WordUtils.capitalize(name); // if format string is deleted, delete this line
-        addField("Name",name);
+        contacts = new ArrayList<>();
+        this.name = WordUtils.capitalize(name); // if format string is deleted, delete this line
         
         /* Comment:
          * Purpose of the line below is to add a User to it's own contact list 
@@ -27,12 +24,11 @@ public class User {
          * the new user is added to it's own contact list AND is added to 'this' user's
          * contact list.
         */
-        database.users.add(this);
+        addContact(this);
     }
 
-    /* returns a handle to this user */
-    public User getUser() {
-        return this;
+    public String getName() {
+        return name;
     }
 
     /* Generic addField function that allows user to specify a new field and value to add
@@ -75,22 +71,30 @@ public class User {
         return sb.toString();
     }
 
-    /* FORMATTING FUNCTIONS */
+    /* CONTACTS FUNCTIONS */
 
-    /* Formats a string by making the first character uppercase, and the rest lowercase */
-    /*
-    protected String formatString(String input) {
-        StringBuilder valid = new StringBuilder();
-        if (input.contains(" ")) {
-            int spaceIndex = input.indexOf(" ");
-            return formatString(input.substring(0, spaceIndex)) 
-            + " " + formatString(input.substring(spaceIndex + 1));
-        }
-        valid.append(Character.toString(input.toUpperCase().charAt(0)));
-        valid.append(input.substring(1).toLowerCase());
-        String s = new String();
-        return valid.toString();
+    public void addContact(User user) {
+        contacts.add(user);
     }
-    */
 
+    public void deleteContact(User user) {
+        if (contacts.contains(user)) {
+            contacts.remove(user);
+            return;
+        }
+        // System.out.println(user.fields.get("Name") + "'s database does not contain " 
+        // + user.fields.get("Name") + "!");
+    }
+
+    public void printContacts() {
+        if (contacts.size() == 0) {
+            System.out.println("Users is empty!");
+            return;
+        }
+        int counter = 0;
+        for (User user : contacts) {
+            System.out.println("Entry " + ++counter + ":\t" + user.getName() + "\tFields: " + user.printFields() + "\n");
+        }
+        if (contacts.size() == 0) System.out.println("Database is empty!\n");
+    }
 }

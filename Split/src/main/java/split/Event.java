@@ -1,7 +1,7 @@
 package split;
 import java.util.*;
 
-public class Event extends Trip {
+public class Event {
 
     /** Event Criteria:
      * 
@@ -14,18 +14,12 @@ public class Event extends Trip {
     */
     
     private String name;
-    private int memberCount = 0;
-    private int adminCount = 0;
 
-    public Event(String name) {
-        this.name = name;
-        events.add(this);
+    Event(String eventName) {
+        name = eventName;
     }
 
-    public Event() {}
-    
     public String getName() {
         return name;
     }
-
 }

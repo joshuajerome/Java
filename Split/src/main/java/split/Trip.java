@@ -1,50 +1,49 @@
 package split;
 import java.util.*;
 
-public class Trip extends Database {
+public class Trip {
 
     private String name;
-    protected List<Event> events;
-    protected List<User> users; // participants
+    private List<Event> events;
+    private List<User> participants;
+
+    // Each event has a expense
+    // maybe create a class called expense manager?
+    // trip should be able to collect all expense data from all events and store/show them
     
     /* TRIP CONSTRUCTION FUNCTIONS */
 
-    public Trip() {}
-
     public Trip(String name) {
-        // name = formatString(name);
         this.name = name;
         events = new ArrayList<>();
-        users = new ArrayList<>();
-    }
-
-    public void editName(String s) {
-        // s = formatString(s);
-        name = s;
+        participants = new ArrayList<>();
     }
 
     public String getName() {
         return this.name;
     }
 
-    /* MEMBER MANAGEMENT FUNCTIONS */
-
-    @Override
-    public void addUser(User user) {
-        users.add(user);
-        transaction_balance.put(user,0.0);
+    public void editName(String s) {
+        name = s;
     }
 
-    @Override
-    public void deleteUser(User user) {
-        users.remove(user);
+    /* PARTICIPANT MANAGEMENT FUNCTIONS */
+
+    public void addParticipant(User user) {
+        participants.add(user);
+    }
+
+    public void deleteParticipant(User user) {
+        participants.remove(user);
     }
 
     /* EVENT MANAGEMENT FUNCTIONS */
 
-    public void createEvent(String name) {
-        // name = formatString(name);
-        Event event = new Event(name);
+    public void addNewEvent(String eventName) {
+        events.add(new Event(eventName));
+    }
+
+    public void addExisitingEvent(Event event) {
         events.add(event);
     }
 
@@ -60,16 +59,16 @@ public class Trip extends Database {
         StringBuilder details = new StringBuilder();
         details.append("\nTrip:\t" + getName());
         details.append("\nUsers:\t");
-        Iterator<User> userIterator = users.iterator();
-        while (userIterator.hasNext()) {
-            details.append(userIterator.next().printFields() + "\n\t");
+        Iterator<User> participantsIterator = participants.iterator();
+        while (participantsIterator.hasNext()) {
+            details.append(participantsIterator.next().printFields() + "\n\t");
         }
-        // details.append("\nEvents:");
-        // Iterator<Event> eventIterator = events.iterator();
-        // while (eventIterator.hasNext()) {
-        //     Event tmp = eventIterator.next();
-        //     details.append(tmp.getName());
-        // }
+        details.append("\nEvents:");
+        Iterator<Event> eventIterator = events.iterator();
+        while (eventIterator.hasNext()) {
+            Event tmp = eventIterator.next();
+            details.append(tmp.getName());
+        }
         System.out.println(details);
     }
 }
