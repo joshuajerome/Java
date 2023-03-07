@@ -4,8 +4,8 @@ import java.util.*;
 public class Trip {
 
     private String name;
-    private List<Event> events;
-    private List<User> participants;
+    private HashSet<Event> events;
+    private HashSet<User> participants;
 
     // Each event has a expense
     // maybe create a class called expense manager?
@@ -15,8 +15,8 @@ public class Trip {
 
     public Trip(String name) {
         this.name = name;
-        events = new ArrayList<>();
-        participants = new ArrayList<>();
+        events = new HashSet<>();
+        participants = new HashSet<>();
     }
 
     public String getName() {
@@ -39,11 +39,7 @@ public class Trip {
 
     /* EVENT MANAGEMENT FUNCTIONS */
 
-    public void addNewEvent(String eventName) {
-        events.add(new Event(eventName));
-    }
-
-    public void addExisitingEvent(Event event) {
+    public void addEvent(Event event) {
         events.add(event);
     }
 
@@ -53,21 +49,22 @@ public class Trip {
         }
     }
 
+    public void addAllParticipantsToEvent(Event event) {
+        event.addAllMembers(participants);
+    }
+
     /* UTILITY FUNCTIONS */
 
-    public void getTripDetails() {
+    public void printTripDetails() {
         StringBuilder details = new StringBuilder();
         details.append("\nTrip:\t" + getName());
-        details.append("\nUsers:\t");
-        Iterator<User> participantsIterator = participants.iterator();
-        while (participantsIterator.hasNext()) {
-            details.append(participantsIterator.next().printFields() + "\n\t");
+        details.append("\nParticipants:\n");
+        for (User user : participants) {
+            details.append("\tParticipant Name:\t" + user.getName() + "\tFields:\t" + user.getFields() + "\n");
         }
-        details.append("\nEvents:");
-        Iterator<Event> eventIterator = events.iterator();
-        while (eventIterator.hasNext()) {
-            Event tmp = eventIterator.next();
-            details.append(tmp.getName());
+        details.append("\nEvents:\n");
+        for (Event event : events) {
+            details.append(event.getEventDetails());
         }
         System.out.println(details);
     }

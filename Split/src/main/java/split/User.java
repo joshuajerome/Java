@@ -7,24 +7,28 @@ public class User {
     private String name;
     /* Fields map stores all fields that users can have such as: email, number, etc. */
     private HashMap<String, String> fields;
-    /* Each user has a database in which the user themself is stored along with user's contacts */
-    private List<User> contacts;
+    /* Each user has a contacts in which the user themself is stored along with user's contacts */
+    private HashSet<User> contacts;
+
+    private HashMap<User, Double> balances;
+    private List<Transaction> transactionHistory;
 
     /* GENERAL USER FUNCTIONS */
     
     /* Primariy constructor for User, assigns field name */
     public User(String name) {
         fields = new HashMap<>();
-        contacts = new ArrayList<>();
-        this.name = WordUtils.capitalize(name); // if format string is deleted, delete this line
-        
-        /* Comment:
-         * Purpose of the line below is to add a User to it's own contact list 
+        contacts = new HashSet<>();
+        balances = new HashMap<>();
+        transactionHistory = new ArrayList<>();
+        this.name = name;
+        addContact(this);
+        /*
+         * Purpose of the line above is to add a User to it's own contact list 
          * when this constructor is called in Database.addContact(), 
          * the new user is added to it's own contact list AND is added to 'this' user's
          * contact list.
         */
-        addContact(this);
     }
 
     public String getName() {
@@ -57,7 +61,7 @@ public class User {
     }
     
     /* Prints all fields of this User */
-    public String printFields() {
+    public String getFields() {
         StringBuilder sb = new StringBuilder();
         if (fields == null) {
             sb.append("null");   
@@ -82,8 +86,6 @@ public class User {
             contacts.remove(user);
             return;
         }
-        // System.out.println(user.fields.get("Name") + "'s database does not contain " 
-        // + user.fields.get("Name") + "!");
     }
 
     public void printContacts() {
@@ -93,8 +95,62 @@ public class User {
         }
         int counter = 0;
         for (User user : contacts) {
-            System.out.println("Entry " + ++counter + ":\t" + user.getName() + "\tFields: " + user.printFields() + "\n");
+            System.out.println("Entry " + ++counter + ":\t" + user.getName() + "\tFields: " + user.getFields() + "\n");
         }
         if (contacts.size() == 0) System.out.println("Database is empty!\n");
+    }
+
+    /* TRANSACTION BALANCE FUNCTIONS */
+
+    /* 
+     * should a request be an object Request?
+     * 
+     */
+
+    /* direction = 1 means outgoing request
+     * direction = -1 means incoming request
+     */
+
+    // public void transact(User user, double amount, int direction) {
+    //     balances.put(user, balances.getOrDefault(user, 0.0) + (direction * amount));
+    // }
+
+    public HashMap<User, Double> getBalances() {
+        return balances;
+    }
+
+    public void request(User user, double amount, String msg) {
+        Transaction transaction = new Transaction(this, user, TransactionType.REQUEST, amount, msg);
+        transaction.transact();
+        transactionHistory.add(transaction);
+    }
+
+    public void send(User user, double amount, String msg) {
+        Transaction transaction = new Transaction(this, user, TransactionType.SEND, amount, msg);
+        transaction.transact();
+        transactionHistory.add(transaction);
+    }
+
+    public String getTransactionHistory() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getName() + "'s Transaction History:\n\n" );
+        for (Transaction transaction : transactionHistory) {
+            sb.append(transaction.getInfo() + "\n\n");
+        }
+        return sb.toString();
+    }
+
+    public String printBalances() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name + "'s Balances:\n");
+        if (balances == null) {
+            sb.append("null");   
+            return sb.toString();
+        }
+        for (User key : balances.keySet()) {
+            sb.append("\t\t" + key.getName() + ":\t" + balances.get(key));
+        }
+        sb.append("\n");
+        return sb.toString();
     }
 }

@@ -14,12 +14,48 @@ public class Event {
     */
     
     private String name;
+    private HashSet<User> members;
+
+    /* EVENT CONSTRUCTION FUNCTIONS */
 
     Event(String eventName) {
         name = eventName;
+        members = new HashSet<>();
     }
 
     public String getName() {
         return name;
     }
+
+    public void editName(String s) {
+        name = s;
+    }
+
+    /* MEMBER MANAGEMENT FUNCTIONS */
+
+    public void addMember(User user) {
+        members.add(user);
+    }
+
+    public void addAllMembers(HashSet<User> setOfUsers) {
+        members.addAll(setOfUsers);
+    } 
+
+    public void deleteMember(User user) {
+        members.remove(user);
+    }
+
+    /* UTILITY FUNCTIONS */
+
+    public String getEventDetails() {
+        StringBuilder details = new StringBuilder();
+        details.append("\nEvent Name:\t" + getName());
+        details.append("\nMembers:\n");
+        for (User user : members) {
+            details.append("\tMember Name:\t" + user.getName() + "\tFields:\t" + user.getFields() + "\n");
+        }
+        return details.toString();
+    }
+
+
 }

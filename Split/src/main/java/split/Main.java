@@ -1,5 +1,4 @@
 package split;
-import java.util.*;
 
 class Main {
 
@@ -63,8 +62,33 @@ class Main {
         user1.deleteField("email");
         user1.printContacts();
 
-        
+        /* Testing Trip */
+        Event event1 = new Event("groceries");
+        Event event2 = new Event("Dinner on Friday");
+        event1.addMember(user2);
 
+        Trip trip1 = new Trip("Disney World");
+        trip1.addParticipant(user1);
+        trip1.addParticipant(user2);
+        trip1.addAllParticipantsToEvent(event2);
+
+        trip1.addEvent(event1);
+        trip1.addEvent(event2);
+
+        trip1.printTripDetails();
+
+        user1.request(user2, 100.0, "first request");
+        user1.request(user2, 10.0, "dinner");
+        user1.send(user2, 50.67, "groceries");
+        user1.send(user2, 10.67, "tax for groceries");
+        user1.send(user2, 20, "movie snacks");
+        user2.send(user1,80.34, "basketball");
+        user2.send(user1, 30, "gays for donald");
+        System.out.println(user1.printBalances());
+        System.out.println(user2.printBalances());
+
+        System.out.println(user1.getTransactionHistory());
+        System.out.println(user2.getTransactionHistory());
 
         // Calculator c = new Calculator();
         // Double array1[] = new Double[] {7.0,11.0,13.0,9.0,41.0,37.0,23.0,29.0,43.0}; // 53.25 split by 4
