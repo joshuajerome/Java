@@ -1,0 +1,17 @@
+Should transactions be between two people or multiple people?
+
+It makes sense for transactions to be soley between two people. 
+- In events/trips, the act of requesting is to a group of people, but each person pays their own dues individually.
+  Hence, each person has their own unique transaction with an admin.
+
+REQUESTs: should be solely a tranasction message + amount. I don't think this should affect the balances of each user.
+SENDs: should affect the balance of only the person recieveing money. Potential API call for venmo or whatever.
+
+SETTLEs: is this necessary? Is the same thing as SEND except it invokes the API call for you i guess?
+IGNOREs: Each user should be able to waive off a request. 
+
+Transact class should be called within Events.
+Should each user have an expenseManager class where it does the transaction balance functions? - this solves the cluttering issue of User
+Each user should be able to put a certain balance for themselves which is unique to an event.
+
+TripManager class to accumulate the balances associated with each User into one big summary.

@@ -11,6 +11,7 @@ public class User {
     private HashSet<User> contacts;
 
     private HashMap<User, Double> balances;
+    private double balance;
     private List<Transaction> transactionHistory;
 
     /* GENERAL USER FUNCTIONS */
@@ -20,6 +21,7 @@ public class User {
         fields = new HashMap<>();
         contacts = new HashSet<>();
         balances = new HashMap<>();
+        balance = 0;
         transactionHistory = new ArrayList<>();
         this.name = name;
         addContact(this);
@@ -102,21 +104,17 @@ public class User {
 
     /* TRANSACTION BALANCE FUNCTIONS */
 
-    /* 
-     * should a request be an object Request?
-     * 
-     */
-
-    /* direction = 1 means outgoing request
-     * direction = -1 means incoming request
-     */
-
-    // public void transact(User user, double amount, int direction) {
-    //     balances.put(user, balances.getOrDefault(user, 0.0) + (direction * amount));
-    // }
-
     public HashMap<User, Double> getBalances() {
         return balances;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+        balances.put(this,balance);
+    }
+
+    public double getBalance() {
+        return balance;
     }
 
     public void request(User user, double amount, String msg) {
@@ -129,6 +127,14 @@ public class User {
         Transaction transaction = new Transaction(this, user, TransactionType.SEND, amount, msg);
         transaction.transact();
         transactionHistory.add(transaction);
+    }
+
+    public void ignore(Transaction transaction) {
+        transaction.setTransactionType(TransactionType.IGNORE);
+    }
+
+    public void settle(Transaction transaction) {
+
     }
 
     public String getTransactionHistory() {

@@ -3,7 +3,9 @@ import java.util.*;
 
 enum TransactionType {
     REQUEST,
-    SEND
+    SEND,
+    SETTLE,
+    IGNORE
 }
 
 public class Transaction {
@@ -18,11 +20,15 @@ public class Transaction {
     public Transaction(User user1, User user2, TransactionType transactionType, double amount, String message) {
         this.user1 = user1;
         this.user2 = user2;
-        this.transactionType = transactionType;
+        setTransactionType(transactionType);
         this.amount = amount;
         this.message = message;
         user1Balances = user1.getBalances();
         user2Balances = user2.getBalances();
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
     }
 
     public void transact() {
@@ -33,18 +39,28 @@ public class Transaction {
             case SEND:
                 send();
                 break;
+            case SETTLE:
+                settle();
+                break;
+            case IGNORE:
+                ignore();
+                break;
         }
+    }
+
+    private void request() {}
+
+    private void send() {
+        user2Balances.put(user1, user2Balances.getOrDefault(user1, 0.0) + amount);
+        user2.setBalance(user2.getBalance() + amount);
+    }
+
+    private void settle() {
         
     }
 
-    private void request() {
-        user1Balances.put(user2, user1Balances.getOrDefault(user2, 0.0) + amount);
-        user2Balances.put(user1, user2Balances.getOrDefault(user1, 0.0) - amount);
-    }
-
-    private void send() {
-        user1Balances.put(user2, user1Balances.getOrDefault(user2, 0.0) - amount);
-        user2Balances.put(user1, user2Balances.getOrDefault(user1, 0.0) + amount);
+    private void ignore() {
+    
     }
     
     public String getInfo() {

@@ -77,13 +77,9 @@ class Main {
 
         trip1.printTripDetails();
 
-        user1.request(user2, 100.0, "first request");
-        user1.request(user2, 10.0, "dinner");
-        user1.send(user2, 50.67, "groceries");
-        user1.send(user2, 10.67, "tax for groceries");
-        user1.send(user2, 20, "movie snacks");
-        user2.send(user1,80.34, "basketball");
-        user2.send(user1, 30, "gays for donald");
+        user1.setBalance(-100.0);
+        user1.request(user2, 100.0, "Friday Dinner");
+        user2.send(user1, 100.0, "Friday Dinner");
         System.out.println(user1.printBalances());
         System.out.println(user2.printBalances());
 
