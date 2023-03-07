@@ -77,14 +77,13 @@ class Main {
 
         trip1.printTripDetails();
 
-        user1.setBalance(-100.0);
         user1.request(user2, 100.0, "Friday Dinner");
-        user2.send(user1, 100.0, "Friday Dinner");
-        System.out.println(user1.printBalances());
-        System.out.println(user2.printBalances());
+        // user2.settle(user1, 100.0, "Friday Dinner");
+        // System.out.println(user1.printBalances());
+        // System.out.println(user2.printBalances());
 
-        System.out.println(user1.getTransactionHistory());
-        System.out.println(user2.getTransactionHistory());
+        System.out.println(user1.printTransactionHistory());
+        System.out.println(user2.printTransactionHistory());
 
         // Calculator c = new Calculator();
         // Double array1[] = new Double[] {7.0,11.0,13.0,9.0,41.0,37.0,23.0,29.0,43.0}; // 53.25 split by 4

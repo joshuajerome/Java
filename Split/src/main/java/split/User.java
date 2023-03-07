@@ -10,9 +10,8 @@ public class User {
     /* Each user has a contacts in which the user themself is stored along with user's contacts */
     private HashSet<User> contacts;
 
-    private HashMap<User, Double> balances;
-    private double balance;
-    private List<Transaction> transactionHistory;
+    private HashMap<Integer, Transaction> transactionHistory;
+    
 
     /* GENERAL USER FUNCTIONS */
     
@@ -20,9 +19,7 @@ public class User {
     public User(String name) {
         fields = new HashMap<>();
         contacts = new HashSet<>();
-        balances = new HashMap<>();
-        balance = 0;
-        transactionHistory = new ArrayList<>();
+        transactionHistory = new HashMap<>();
         this.name = name;
         addContact(this);
         /*
@@ -102,61 +99,39 @@ public class User {
         if (contacts.size() == 0) System.out.println("Database is empty!\n");
     }
 
-    /* TRANSACTION BALANCE FUNCTIONS */
+    /* TRANSACTION FUNCTIONS */
 
-    public HashMap<User, Double> getBalances() {
-        return balances;
+    public Transaction request(User user, double amount, String message) {
+        Transaction transaction = new Transaction(TransactionType.REQUEST, amount, message);
+        TransactionManager transactionManager = new TransactionManager(this, user, transaction);
+        transactionManager.transact();
+        return transaction;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-        balances.put(this,balance);
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void request(User user, double amount, String msg) {
-        Transaction transaction = new Transaction(this, user, TransactionType.REQUEST, amount, msg);
-        transaction.transact();
-        transactionHistory.add(transaction);
-    }
-
-    public void send(User user, double amount, String msg) {
-        Transaction transaction = new Transaction(this, user, TransactionType.SEND, amount, msg);
-        transaction.transact();
-        transactionHistory.add(transaction);
-    }
-
-    public void ignore(Transaction transaction) {
-        transaction.setTransactionType(TransactionType.IGNORE);
-    }
-
-    public void settle(Transaction transaction) {
-
-    }
-
-    public String getTransactionHistory() {
+    public String printTransactionHistory() {
         StringBuilder sb = new StringBuilder();
         sb.append(getName() + "'s Transaction History:\n\n" );
-        for (Transaction transaction : transactionHistory) {
+        for (Transaction transaction : transactionHistory.values()) {
             sb.append(transaction.getInfo() + "\n\n");
         }
         return sb.toString();
     }
 
-    public String printBalances() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(name + "'s Balances:\n");
-        if (balances == null) {
-            sb.append("null");   
-            return sb.toString();
-        }
-        for (User key : balances.keySet()) {
-            sb.append("\t\t" + key.getName() + ":\t" + balances.get(key));
-        }
-        sb.append("\n");
-        return sb.toString();
+    public HashMap<Integer, Transaction> getTransactionHistory() {
+        return transactionHistory;
     }
+
+    // public String printBalances() {
+    //     StringBuilder sb = new StringBuilder();
+    //     sb.append(name + "'s Balances:\n");
+    //     if (balances == null) {
+    //         sb.append("null");   
+    //         return sb.toString();
+    //     }
+    //     for (User key : balances.keySet()) {
+    //         sb.append("\t\t" + key.getName() + ":\t" + balances.get(key));
+    //     }
+    //     sb.append("\n");
+    //     return sb.toString();
+    // }
 }

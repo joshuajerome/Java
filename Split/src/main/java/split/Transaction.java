@@ -1,73 +1,39 @@
 package split;
-import java.util.*;
 
 enum TransactionType {
     REQUEST,
-    SEND,
     SETTLE,
     IGNORE
 }
 
 public class Transaction {
 
-    private User user1, user2;
-    private HashMap <User, Double> user1Balances, user2Balances; 
+    private int ID;
     private double amount;
     private String message;
-
     private TransactionType transactionType;
 
-    public Transaction(User user1, User user2, TransactionType transactionType, double amount, String message) {
-        this.user1 = user1;
-        this.user2 = user2;
-        setTransactionType(transactionType);
+    public Transaction(TransactionType transactionType, double amount, String message) {
+        this.transactionType = transactionType;
         this.amount = amount;
         this.message = message;
-        user1Balances = user1.getBalances();
-        user2Balances = user2.getBalances();
+        ID = this.hashCode();
     }
 
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
-    }
+    public int getID() { return ID; }
 
-    public void transact() {
-        switch(transactionType) {
-            case REQUEST:
-                request();
-                break;
-            case SEND:
-                send();
-                break;
-            case SETTLE:
-                settle();
-                break;
-            case IGNORE:
-                ignore();
-                break;
-        }
-    }
+    public TransactionType getTransactionType() { return transactionType; }
 
-    private void request() {}
+    public double getAmount() { return amount; }
 
-    private void send() {
-        user2Balances.put(user1, user2Balances.getOrDefault(user1, 0.0) + amount);
-        user2.setBalance(user2.getBalance() + amount);
-    }
-
-    private void settle() {
-        
-    }
-
-    private void ignore() {
-    
-    }
+    public String getMessage() { return message; }
     
     public String getInfo() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Transaction between " + user1.getName() + " and " + user2.getName() + "\n");
-        sb.append("Transaction type: " + transactionType.toString() + "\t$" + amount + "\n");
-        sb.append("Transaction message: " + message);
+        sb.append("Transaction ID: " + ID + "\t");
+        sb.append("Transaction type: " + transactionType.toString() + "\t");
+        sb.append("Transaction amount: $" + amount + "\t");
+        sb.append("Transaction message: " + message + "\n");
         return sb.toString();
     }
 }
