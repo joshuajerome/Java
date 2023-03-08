@@ -77,10 +77,10 @@ class Main {
 
         trip1.printTripDetails();
 
-        user1.request(user2, 100.0, "Friday Dinner");
-        // user2.settle(user1, 100.0, "Friday Dinner");
-        // System.out.println(user1.printBalances());
-        // System.out.println(user2.printBalances());
+        Transaction transaction = user1.request(user2, 100.0, "Friday Dinner");
+        // user2.settle(transaction);
+        System.out.println(user1.printBalances());
+        System.out.println(user2.printBalances());
 
         System.out.println(user1.printTransactionHistory());
         System.out.println(user2.printTransactionHistory());

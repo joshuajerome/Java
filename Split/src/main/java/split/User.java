@@ -10,8 +10,9 @@ public class User {
     /* Each user has a contacts in which the user themself is stored along with user's contacts */
     private HashSet<User> contacts;
 
-    private HashMap<Integer, Transaction> transactionHistory;
-    
+    private HashMap<Transaction, TransactionManager> transactionHistory;
+    private HashMap<User, Double> balances;
+
 
     /* GENERAL USER FUNCTIONS */
     
@@ -20,6 +21,7 @@ public class User {
         fields = new HashMap<>();
         contacts = new HashSet<>();
         transactionHistory = new HashMap<>();
+        balances = new HashMap<>();
         this.name = name;
         addContact(this);
         /*
@@ -108,30 +110,41 @@ public class User {
         return transaction;
     }
 
+    public void settle(Transaction transaction) {
+        transaction.setTransactionType(TransactionType.SETTLE);
+        transactionHistory.get(transaction).transact();
+    }
+
     public String printTransactionHistory() {
         StringBuilder sb = new StringBuilder();
         sb.append(getName() + "'s Transaction History:\n\n" );
-        for (Transaction transaction : transactionHistory.values()) {
+        for (Transaction transaction : transactionHistory.keySet()) {
             sb.append(transaction.getInfo() + "\n\n");
         }
         return sb.toString();
     }
 
-    public HashMap<Integer, Transaction> getTransactionHistory() {
+    public HashMap<Transaction,TransactionManager> getTransactionHistory() {
         return transactionHistory;
     }
 
-    // public String printBalances() {
-    //     StringBuilder sb = new StringBuilder();
-    //     sb.append(name + "'s Balances:\n");
-    //     if (balances == null) {
-    //         sb.append("null");   
-    //         return sb.toString();
-    //     }
-    //     for (User key : balances.keySet()) {
-    //         sb.append("\t\t" + key.getName() + ":\t" + balances.get(key));
-    //     }
-    //     sb.append("\n");
-    //     return sb.toString();
-    // }
+    /* BALANCE FUNCTIONS */
+
+    public HashMap<User, Double> getBalances() {
+        return balances;
+    }
+
+    public String printBalances() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name + "'s Balances:\n");
+        if (balances == null) {
+            sb.append("null");   
+            return sb.toString();
+        }
+        for (User key : balances.keySet()) {
+            sb.append("\t\t" + key.getName() + ":\t" + balances.get(key));
+        }
+        sb.append("\n");
+        return sb.toString();
+    }
 }

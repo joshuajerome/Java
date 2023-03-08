@@ -3,7 +3,8 @@ package split;
 enum TransactionType {
     REQUEST,
     SETTLE,
-    IGNORE
+    IGNORE,
+    CLOSE
 }
 
 public class Transaction {
@@ -21,6 +22,8 @@ public class Transaction {
     }
 
     public int getID() { return ID; }
+
+    public void setTransactionType(TransactionType tt) { transactionType = tt; }
 
     public TransactionType getTransactionType() { return transactionType; }
 

@@ -7,17 +7,10 @@ public class TransactionManager {
     private User admin, user;
     private Transaction transaction;
 
-    
-    private double adminBalance;
-    private double userBalance;
-
     public TransactionManager(User admin, User user, Transaction transaction) {
         this.admin = admin;
         this.user = user;
         this.transaction = transaction;
-
-        adminBalance = 0.0;
-        userBalance = 0.0;
     }
 
     public void transact() {
@@ -31,31 +24,36 @@ public class TransactionManager {
             case IGNORE:
                 ignore();
                 break;
+            case CLOSE:
+                close();
+                break;
         }
     }
 
     private void request() {
-        adminBalance = transaction.getAmount();
-        userBalance = -1.0 * transaction.getAmount();
 
-        admin.getTransactionHistory().put(transaction.getID(),transaction);
+        admin.getTransactionHistory().put(transaction,this);
+        user.getTransactionHistory().put(transaction,this);
+
+        admin.getBalances().put(user, admin.getBalances().getOrDefault(user, 0.0) + transaction.getAmount());
+        user.getBalances().put(admin, user.getBalances().getOrDefault(admin, 0.0) - transaction.getAmount());
     }
 
     private void settle() {
-        adminBalance = 0.0;
-        userBalance = 0.0;
 
-        admin.getTransactionHistory().put(transaction.getID(),transaction);
-        user.getTransactionHistory().put(transaction.getID(),transaction);
+        admin.getTransactionHistory().put(transaction,this);
+        user.getTransactionHistory().put(transaction,this);
+
+        admin.getBalances().replace(user, admin.getBalances().get(user) - transaction.getAmount());
+        user.getBalances().replace(admin, user.getBalances().get(admin) + transaction.getAmount());
+
     }
 
     private void ignore() {
-        adminBalance *= -1.0;
-        userBalance = 0.0;
-
-        admin.getTransactionHistory().put(transaction.getID(),transaction);
-        user.getTransactionHistory().put(transaction.getID(),transaction);
+        
     }
 
+    private void close() {
 
+    }
 }
