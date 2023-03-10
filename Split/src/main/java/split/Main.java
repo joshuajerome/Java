@@ -78,7 +78,8 @@ class Main {
         trip1.printTripDetails();
 
         Transaction transaction = user1.request(user2, 100.0, "Friday Dinner");
-        // user2.settle(transaction);
+        user1.request(user2, 50, "groceries");
+        user2.settle(transaction);
         System.out.println(user1.printBalances());
         System.out.println(user2.printBalances());
 
