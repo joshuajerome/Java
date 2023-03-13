@@ -111,7 +111,7 @@ public class User {
     }
 
     public void settle(Transaction transaction) {
-        transaction.setTransactionType(TransactionType.SETTLE);
+        transaction.setTransactionType(TransactionType.SETTLED);
         transactionHistory.get(transaction).transact();
     }
 

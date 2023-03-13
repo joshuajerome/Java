@@ -2,9 +2,7 @@ package split;
 
 enum TransactionType {
     REQUEST,
-    SETTLE,
-    IGNORE,
-    CLOSE
+    SETTLED
 }
 
 public class Transaction {

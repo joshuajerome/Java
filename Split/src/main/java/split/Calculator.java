@@ -169,7 +169,7 @@ public class Calculator {
     */
 
     /* */
-    List<List<Double>> optimize (List<List<Double>> subArrays, int split) {
+    List<List<Double>> optimize (List<List<Double>> subArrays, int k) {
         return subArrays;
     }
 

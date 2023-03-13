@@ -18,14 +18,8 @@ public class TransactionManager {
             case REQUEST:
                 request();
                 break;
-            case SETTLE:
+            case SETTLED:
                 settle();
-                break;
-            case IGNORE:
-                ignore();
-                break;
-            case CLOSE:
-                close();
                 break;
         }
     }
@@ -46,14 +40,6 @@ public class TransactionManager {
 
         admin.getBalances().replace(user, admin.getBalances().get(user) - transaction.getAmount());
         user.getBalances().replace(admin, user.getBalances().get(admin) + transaction.getAmount());
-
-    }
-
-    private void ignore() {
-        
-    }
-
-    private void close() {
 
     }
 }

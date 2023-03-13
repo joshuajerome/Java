@@ -16,6 +16,8 @@ public class Event {
     private String name;
     private HashSet<User> members;
 
+    
+
     /* EVENT CONSTRUCTION FUNCTIONS */
 
     Event(String eventName) {

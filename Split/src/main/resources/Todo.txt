@@ -1,0 +1,32 @@
+Each user has say "n" transactions in their transactionHistory
+A users transaction history will store ALL transactions regardless of Event/Trip associated with it
+
+But within each event, there will be a map of users roughly like so:
+
+      In an event (Friday Dinner):
+
+      members = Josh, Gautam, Suvass
+
+      Map in event:
+
+      Josh    -->   Gautam:   x
+                    Suvass:   x
+
+      Gautam  -->   Josh:     x
+                    Suvass:   x
+
+      Suvass  -->   Josh:     x
+                    Gautam:   x
+
+But within Josh's total transaction history, it will look like:
+
+      Josh  -->   Gautam:   x
+                  Suvass:   x
+                  Chris:    x
+                  ...
+
+The member map in event should only be able to access and store the 
+transactions associated with said event.
+
+How do I do this?
+

@@ -7,7 +7,7 @@ public class Trip {
     private HashSet<Event> events;
     private HashSet<User> participants;
 
-    // Each event has a expense
+    // Each event has an expense
     // maybe create a class called expense manager?
     // trip should be able to collect all expense data from all events and store/show them
     
