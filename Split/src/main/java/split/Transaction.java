@@ -1,5 +1,10 @@
 package split;
 
+/*
+ * 
+ * 
+ */
+
 enum TransactionType {
     REQUEST,
     SETTLED
@@ -19,9 +24,10 @@ public class Transaction {
         ID = this.hashCode();
     }
 
-    public int getID() { return ID; }
+    private int getID() { return ID; }
 
-    public void setTransactionType(TransactionType tt) { transactionType = tt; }
+    // no setting tt
+    private void setTransactionType(TransactionType tt) { transactionType = tt; }
 
     public TransactionType getTransactionType() { return transactionType; }
 
@@ -29,6 +35,7 @@ public class Transaction {
 
     public String getMessage() { return message; }
     
+    // implement as toString
     public String getInfo() {
         StringBuilder sb = new StringBuilder();
         sb.append("Transaction ID: " + ID + "\t");

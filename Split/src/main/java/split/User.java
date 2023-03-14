@@ -110,10 +110,10 @@ public class User {
         return transaction;
     }
 
-    public void settle(Transaction transaction) {
-        transaction.setTransactionType(TransactionType.SETTLED);
-        transactionHistory.get(transaction).transact();
-    }
+    // public void settle(Transaction transaction) {
+    //     transaction.setTransactionType(TransactionType.SETTLED);
+    //     transactionHistory.get(transaction).transact();
+    // }
 
     public String printTransactionHistory() {
         StringBuilder sb = new StringBuilder();

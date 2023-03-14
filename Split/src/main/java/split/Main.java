@@ -81,8 +81,8 @@ class Main {
 
         Transaction transaction1 = user1.request(user2, 100.0, "Friday Dinner");
         Transaction transaction2 = user1.request(user2, 50, "groceries");
-        user2.settle(transaction1);
-        user2.settle(transaction2);
+        // user2.settle(transaction1);
+        // user2.settle(transaction2);
         System.out.println(user1.printBalances());
         System.out.println(user2.printBalances());
 

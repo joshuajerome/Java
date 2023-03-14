@@ -4,12 +4,12 @@ import java.util.*;
 
 public class TransactionManager {
     
-    private User admin, user;
+    private User receiver, sender;
     private Transaction transaction;
 
-    public TransactionManager(User admin, User user, Transaction transaction) {
-        this.admin = admin;
-        this.user = user;
+    public TransactionManager(User receiver, User sender, Transaction transaction) {
+        this.receiver = receiver;
+        this.sender = sender;
         this.transaction = transaction;
     }
 
@@ -26,20 +26,20 @@ public class TransactionManager {
 
     private void request() {
 
-        admin.getTransactionHistory().put(transaction,this);
-        user.getTransactionHistory().put(transaction,this);
+        receiver.getTransactionHistory().put(transaction,this);
+        sender.getTransactionHistory().put(transaction,this);
 
-        admin.getBalances().put(user, admin.getBalances().getOrDefault(user, 0.0) + transaction.getAmount());
-        user.getBalances().put(admin, user.getBalances().getOrDefault(admin, 0.0) - transaction.getAmount());
+        receiver.getBalances().put(sender, receiver.getBalances().getOrDefault(sender, 0.0) + transaction.getAmount());
+        sender.getBalances().put(receiver, sender.getBalances().getOrDefault(receiver, 0.0) - transaction.getAmount());
     }
 
     private void settle() {
 
-        admin.getTransactionHistory().put(transaction,this);
-        user.getTransactionHistory().put(transaction,this);
+        receiver.getTransactionHistory().put(transaction,this);
+        sender.getTransactionHistory().put(transaction,this);
 
-        admin.getBalances().replace(user, admin.getBalances().get(user) - transaction.getAmount());
-        user.getBalances().replace(admin, user.getBalances().get(admin) + transaction.getAmount());
+        receiver.getBalances().replace(sender, receiver.getBalances().get(sender) - transaction.getAmount());
+        sender.getBalances().replace(receiver, sender.getBalances().get(receiver) + transaction.getAmount());
 
     }
 }
