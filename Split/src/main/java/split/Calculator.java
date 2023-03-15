@@ -128,6 +128,12 @@ public class Calculator {
         double totalCost = sumList(allCosts);
         List<Double> kExpected = expected(totalCost, k);
 
+        System.out.println("******************");
+        for (double d : kExpected) {
+            System.out.print(d + " ");
+        }
+        System.out.println("\n******************");
+
         int upperEnd = allCosts.size() - 1;
         
         for (int i = 0; i < k; i++) {                                                               /* For each subArray... */                            

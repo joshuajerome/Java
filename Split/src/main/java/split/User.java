@@ -76,7 +76,7 @@ public class User {
         return sb.toString();
     }
 
-    /* CONTACTS FUNCTIONS */
+    /* CONTACTS FUNCTIONS -- CHANGE TO CONTACTS CLASS IMPLEMENTATION */
 
     public void addContact(User user) {
         contacts.add(user);

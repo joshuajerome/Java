@@ -1,10 +1,5 @@
 package split;
 
-/*
- * 
- * 
- */
-
 enum TransactionType {
     REQUEST,
     SETTLED
