@@ -97,7 +97,30 @@ class Main {
         Double array5[] = new Double[] {2.0,5.0,7.0,1.0,9.0,8.0,3.0,6.0}; // 13.33 split by 3
         Double array6[] = new Double[] {1.0,2.0,3.0,4.0,5.0,6.0}; // 21.0 split by 3 = 7.0
 
-        List<Double> totalCost = Arrays.asList(array1);
+        List<Double> totalCost;
+
+        System.out.println("Test Case 1:");
+        totalCost = Arrays.asList(array1);
         System.out.println(c.printSubArrays(totalCost,4));
+
+        System.out.println("Test Case 2:");
+        totalCost = Arrays.asList(array2);
+        System.out.println(c.printSubArrays(totalCost,3));
+
+        System.out.println("Test Case 3:");
+        totalCost = Arrays.asList(array3);
+        System.out.println(c.printSubArrays(totalCost,3));
+
+        System.out.println("Test Case 4:");
+        totalCost = Arrays.asList(array4);
+        System.out.println(c.printSubArrays(totalCost,3));
+
+        System.out.println("Test Case 5:");
+        totalCost = Arrays.asList(array5);
+        System.out.println(c.printSubArrays(totalCost,3));
+
+        System.out.println("Test Case 6:");
+        totalCost = Arrays.asList(array6);
+        System.out.println(c.printSubArrays(totalCost,3));
     }
 }

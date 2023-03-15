@@ -128,12 +128,6 @@ public class Calculator {
         double totalCost = sumList(allCosts);
         List<Double> kExpected = expected(totalCost, k);
 
-        System.out.println("******************");
-        for (double d : kExpected) {
-            System.out.print(d + " ");
-        }
-        System.out.println("\n******************");
-
         int upperEnd = allCosts.size() - 1;
         
         for (int i = 0; i < k; i++) {                                                               /* For each subArray... */                            
@@ -176,12 +170,54 @@ public class Calculator {
 
     /* */
     List<List<Double>> optimize (List<List<Double>> subArrays, int k) {
+        List<Double> checkValues = new ArrayList<>();
+        double totalSum = 0;
+        double min = Double.MAX_VALUE;
+
+        for (List<Double> subArray : subArrays) {
+            totalSum += sumList(subArray);
+            min = (Collections.min(subArray) < min)? Collections.min(subArray) : min;
+        }
+        double expected = totalSum / k;
+
+        double threshold = min/2.0;
+        int kCounter = 0;
+
+        // System.out.println("Expected:\t" + expected);
+        // System.out.println("Min:\t" + min);
+        // System.out.println("Threshold:\t" + threshold);
+
+        for (int i = 0; i < subArrays.size();) {
+            List<Double> subArray = subArrays.get(i);
+            if (Math.abs(expected - sumList(subArray)) > threshold) {
+                kCounter++;
+                // System.out.println(kCounter);
+                for (Double d : subArray) {
+                    checkValues.add(d);
+                }
+                subArrays.remove(subArray);
+            } else {
+                i++;
+            }
+        }
+
+        // System.out.println("**********************");
+        // for (Double d : checkValues) {
+        //    System.out.print(d + " ");
+        // }
+        // System.out.println("\n**********************");
+
+        List<List<Double>> optimizedList = generateSubArrays(checkValues, kCounter);
+        for (List<Double> subList : optimizedList) {
+            subArrays.add(subList);
+        }
+
         return subArrays;
     }
 
     /* Prints all the generated subarrays */
     public String printSubArrays(List<Double> allCosts, int k) {
-        List<List<Double>> list = generateSubArrays(allCosts, k);
+        List<List<Double>> list = optimize(generateSubArrays(allCosts, k), k);
         StringBuilder sb = new StringBuilder();
         list.add(expected(sumList(allCosts),k));
         for (List<Double> l : list) {
