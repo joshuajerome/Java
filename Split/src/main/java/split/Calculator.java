@@ -120,7 +120,7 @@ public class Calculator {
      * Pre-Condition:   allCosts is a non-null non-empty list of double vales; k is a positive integer
      * Post-Condition:  returns subarrays from allCosts that fulfills the functionality.
      */
-    private List<List<Double>> generateSubArrays(List<Double> allCosts, int k) {
+     private List<List<Double>> generateSubArrays(List<Double> allCosts, int k) {
         List<List<Double>> subArrays = new ArrayList<>();
         HashSet<Integer> added = new HashSet<>();
 
@@ -137,7 +137,7 @@ public class Calculator {
                                                                                                        to ensure it's only used once */
             double minDiff = Math.abs(kExpected.get(i) - sumList(sub));                             /* Calculate the min difference by taking the absolute value of 
                                                                                                        the difference between the expected value of the current subarray 
-                                                                                                       and the sum of the current subarray (which is just upperEnd at this point) */
+                                                                                                      and the sum of the current subarray (which is just upperEnd at this point) */
             for (int h = 0; h < upperEnd; h++) {                                                    /* Loop through each value in allCosts */
                 int potential = upperEnd;                                                           /* Create a potential value and assign it to upperEnd. Will revisit potential later */
                 for (int j = 0; j < upperEnd; j++) {                                                /* Loop through each value in allCosts again! See bottom of function for explanation */
