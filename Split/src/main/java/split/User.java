@@ -7,9 +7,10 @@ public class User {
     private String name;
     /* Fields map stores all fields that users can have such as: email, number, etc. */
     private HashMap<String, String> fields;
-    /* Each user has a contacts in which the user themself is stored along with user's contacts */
-    private HashSet<User> contacts;
+    private UUID id;
+    
 
+    private HashSet<User> contacts;
     private HashMap<Transaction, TransactionManager> transactionHistory;
     private HashMap<User, Double> balances;
 
@@ -19,6 +20,8 @@ public class User {
     /* Primariy constructor for User, assigns field name */
     public User(String name) {
         fields = new HashMap<>();
+        id = UUID.randomUUID();
+
         contacts = new HashSet<>();
         transactionHistory = new HashMap<>();
         balances = new HashMap<>();
@@ -34,6 +37,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public UUID getID() {
+        return id;
     }
 
     /* Generic addField function that allows user to specify a new field and value to add
