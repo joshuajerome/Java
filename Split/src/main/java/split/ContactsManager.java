@@ -1,4 +1,6 @@
 package split;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.*;
 
 public class ContactsManager {
@@ -10,14 +12,12 @@ public class ContactsManager {
     }
 
     public void addEntry(UUID id) {
-        if (!contactsDatabase.containsKey(id)) {
-            contactsDatabase.put(id, new Contacts());
-        }
+        assertTrue(!contactsDatabase.containsKey(id));
+        contactsDatabase.put(id, new Contacts());
     }
 
     public void removeEntry(UUID id) {
-        if (contactsDatabase.containsKey(id)) {
-            contactsDatabase.remove(id);
-        }
+        assertTrue(contactsDatabase.containsKey(id));
+        contactsDatabase.remove(id);
     }
 }
