@@ -20,7 +20,7 @@ public class User {
     /* Primariy constructor for User, assigns field name */
     public User(String name) {
         fields = new HashMap<>();
-        id = UUID.randomUUID();
+        id = UUID.fromString(name);
 
         contacts = new HashSet<>();
         transactionHistory = new HashMap<>();

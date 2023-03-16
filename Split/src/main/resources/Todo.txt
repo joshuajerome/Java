@@ -58,4 +58,5 @@ maintains map: user id, user's account
 
 Expense Manager class that handles everything
 
-
+*****
+Add toString() to each class
