@@ -1,4 +1,5 @@
 package split;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -59,6 +60,21 @@ public class AccountManager {
             }
         }
         throw new RuntimeException("User does not contain account of type: " + accountType.toString());
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Iterator<UUID> iterator = accountDatabase.keySet().iterator();
+        while (iterator.hasNext()) {
+            UUID key = iterator.next();
+            sb.append("UUID:\t" + key.toString() + "\n");
+            for (Account account : accountDatabase.get(key)) {
+                sb.append("\t" + account.toString());
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
 

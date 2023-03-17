@@ -33,4 +33,11 @@ public class Account {
         return accountType;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getAccountType().toString() + " Account with balance: " + getBalance() + "\n");
+        return sb.toString();
+    }
+
 }
