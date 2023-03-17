@@ -7,7 +7,6 @@ enum TransactionType {
 
 public class Transaction {
 
-    private int ID;
     private double amount;
     private String message;
     private TransactionType transactionType;
@@ -16,13 +15,7 @@ public class Transaction {
         this.transactionType = transactionType;
         this.amount = amount;
         this.message = message;
-        ID = this.hashCode();
     }
-
-    private int getID() { return ID; }
-
-    // no setting tt
-    private void setTransactionType(TransactionType tt) { transactionType = tt; }
 
     public TransactionType getTransactionType() { return transactionType; }
 
@@ -33,7 +26,6 @@ public class Transaction {
     // implement as toString
     public String getInfo() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Transaction ID: " + ID + "\t");
         sb.append("Transaction type: " + transactionType.toString() + "\t");
         sb.append("Transaction amount: $" + amount + "\t");
         sb.append("Transaction message: " + message + "\n");

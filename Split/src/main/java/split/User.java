@@ -8,12 +8,6 @@ public class User {
     /* Fields map stores all fields that users can have such as: email, number, etc. */
     private HashMap<String, String> fields;
     private UUID id;
-    
-
-    private HashSet<User> contacts;
-    private HashMap<Transaction, TransactionManager> transactionHistory;
-    private HashMap<User, Double> balances;
-
 
     /* GENERAL USER FUNCTIONS */
     
@@ -21,12 +15,7 @@ public class User {
     public User(String name) {
         fields = new HashMap<>();
         id = UUID.fromString(name);
-
-        contacts = new HashSet<>();
-        transactionHistory = new HashMap<>();
-        balances = new HashMap<>();
         this.name = name;
-        addContact(this);
         /*
          * Purpose of the line above is to add a User to it's own contact list 
          * when this constructor is called in Database.addContact(), 
@@ -80,78 +69,6 @@ public class User {
             String key = iterator.next();
             sb.append("\t\t" + key + ":\t" + fields.get(key));
         }
-        return sb.toString();
-    }
-
-    /* CONTACTS FUNCTIONS -- CHANGE TO CONTACTS CLASS IMPLEMENTATION */
-
-    public void addContact(User user) {
-        contacts.add(user);
-    }
-
-    public void deleteContact(User user) {
-        if (contacts.contains(user)) {
-            contacts.remove(user);
-            return;
-        }
-    }
-
-    public void printContacts() {
-        if (contacts.size() == 0) {
-            System.out.println("Users is empty!");
-            return;
-        }
-        int counter = 0;
-        for (User user : contacts) {
-            System.out.println("Entry " + ++counter + ":\t" + user.getName() + "\tFields: " + user.getFields() + "\n");
-        }
-        if (contacts.size() == 0) System.out.println("Database is empty!\n");
-    }
-
-    /* TRANSACTION FUNCTIONS */
-
-    public Transaction request(User user, double amount, String message) {
-        Transaction transaction = new Transaction(TransactionType.REQUEST, amount, message);
-        TransactionManager transactionManager = new TransactionManager(this, user, transaction);
-        transactionManager.transact();
-        return transaction;
-    }
-
-    // public void settle(Transaction transaction) {
-    //     transaction.setTransactionType(TransactionType.SETTLED);
-    //     transactionHistory.get(transaction).transact();
-    // }
-
-    public String printTransactionHistory() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getName() + "'s Transaction History:\n\n" );
-        for (Transaction transaction : transactionHistory.keySet()) {
-            sb.append(transaction.getInfo() + "\n\n");
-        }
-        return sb.toString();
-    }
-
-    public HashMap<Transaction,TransactionManager> getTransactionHistory() {
-        return transactionHistory;
-    }
-
-    /* BALANCE FUNCTIONS */
-
-    public HashMap<User, Double> getBalances() {
-        return balances;
-    }
-
-    public String printBalances() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(name + "'s Balances:\n");
-        if (balances == null) {
-            sb.append("null");   
-            return sb.toString();
-        }
-        for (User key : balances.keySet()) {
-            sb.append("\t\t" + key.getName() + ":\t" + balances.get(key));
-        }
-        sb.append("\n");
         return sb.toString();
     }
 }
