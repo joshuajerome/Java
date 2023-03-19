@@ -9,7 +9,7 @@ class Main {
      *  - check what branch i'm on: git branch -a
      *  - see differences: git diff "File name"
      *  2) Make changes
-     *  3) git add
+     *  3) git add -A
      *  4) git commit -m "message"
      *  5) git push origin "branch name"
      *  6) create pull request
