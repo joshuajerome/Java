@@ -29,7 +29,7 @@ public class TransactionHistory {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (TransactionRecord record : records) {
-            sb.append(record.toString());
+            sb.append("\t" + record.toString() + "\n");
         }
         sb.append("\n");
         return sb.toString();

@@ -4,33 +4,18 @@ import java.util.*;
 
 public class TransactionManager {
     
-    private User receiver, sender;
-    private Transaction transaction;
-    private TransactionRecord transactionRecord;
+    TransactionHistoryManager transactionHistoryManager;
 
-    public TransactionManager(User receiver, User sender, Transaction transaction) {
-        this.receiver = receiver;
-        this.sender = sender;
-        this.transaction = transaction;
-        transactionRecord = new TransactionRecord(transaction);
+    public TransactionManager() {
+       transactionHistoryManager = new TransactionHistoryManager();
     }
 
-    public void transact() {
-        switch (transaction.getTransactionType()) {
-            case REQUEST:
-                request();
-                break;
-            case SETTLED:
-                settle();
-                break;
-        }
+    public void transact(UUID sender, UUID reciever, Transaction transaction) {
+        transactionHistoryManager.addEntry(sender);
+        transactionHistoryManager.addEntry(reciever);
+        TransactionRecord record = new TransactionRecord(transaction);
+        transactionHistoryManager.getTransactionHistory(sender).addRecord(record);
+        transactionHistoryManager.getTransactionHistory(reciever).addRecord(record);
     }
 
-    private void request() {
-       
-    }
-
-    private void settle() {
-
-    }
 }

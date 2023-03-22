@@ -23,8 +23,8 @@ public class Transaction {
 
     public String getMessage() { return message; }
     
-    // implement as toString
-    public String getInfo() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Transaction type: " + transactionType.toString() + "\t");
         sb.append("Transaction amount: $" + amount + "\t");
