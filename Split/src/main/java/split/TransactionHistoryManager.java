@@ -17,7 +17,7 @@ public class TransactionHistoryManager {
     }
 
     public void removeEntry(UUID id) {
-        assertTrue(transactionHistoryMap.containsKey(id));
+        transactionHistoryMap.put(id,new TransactionHistory());
         transactionHistoryMap.remove(id);
     }
 

@@ -14,7 +14,7 @@ public class User {
     /* Primariy constructor for User, assigns field name */
     public User(String name) {
         fields = new HashMap<>();
-        id = UUID.fromString(name);
+        id = UUID.randomUUID();
         this.name = name;
         /*
          * Purpose of the line above is to add a User to it's own contact list 
@@ -58,7 +58,8 @@ public class User {
     }
     
     /* Prints all fields of this User */
-    public String getFields() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         if (fields == null) {
             sb.append("null");   

@@ -28,7 +28,7 @@ public class Contacts {
         }
         int counter = 0;
         for (User user : contacts) {
-            sb.append("Entry " + ++counter + ":\t" + user.getName() + "\tFields: " + user.getFields() + "\n");
+            sb.append("Entry " + ++counter + ":\t" + user.getName() + "\tFields: " + user.toString() + "\n");
         }
         if (contacts.size() == 0) sb.append("Database is empty!\n");
         return sb.toString();

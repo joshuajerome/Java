@@ -1,7 +1,6 @@
 package split;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.*;
 
 public class TransactionHistory {

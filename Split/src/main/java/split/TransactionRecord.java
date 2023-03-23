@@ -26,7 +26,7 @@ public class TransactionRecord {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Transaction:\n\t" + transaction);
+        sb.append("Transaction:\n\t" + transaction.toString());
         sb.append("\t@\t" + formatTimeStamp() + "\n");
         return sb.toString();
     }

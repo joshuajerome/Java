@@ -60,7 +60,7 @@ public class Trip {
         details.append("\nTrip:\t" + getName());
         details.append("\nParticipants:\n");
         for (User user : participants) {
-            details.append("\tParticipant Name:\t" + user.getName() + "\tFields:\t" + user.getFields() + "\n");
+            details.append("\tParticipant Name:\t" + user.getName() + "\tFields:\t" + user.toString() + "\n");
         }
         details.append("\nEvents:\n");
         for (Event event : events) {

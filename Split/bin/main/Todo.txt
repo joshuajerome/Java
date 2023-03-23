@@ -60,3 +60,22 @@ Expense Manager class that handles everything
 
 *****
 Add toString() to each class
+
+*****
+Account:    
+AccountManager:
+Calculator:
+Contacts:
+ContactsManager:
+Databse:
+Event:
+EventManager:
+Expense:
+ExpenseManager:
+Transaction: Complete
+TransactionRecord: Complete
+TransactionHistory: Complete
+TransactionHistoryManager:
+TransactionManager:
+Trip:
+User:

@@ -18,4 +18,8 @@ public class TransactionManager {
         transactionHistoryManager.getTransactionHistory(reciever).addRecord(record);
     }
 
+    public void printTransactionHistoryManager() {
+        System.out.println(transactionHistoryManager.toString());
+    }
+
 }

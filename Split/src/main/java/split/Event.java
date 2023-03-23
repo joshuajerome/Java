@@ -54,7 +54,7 @@ public class Event {
         details.append("\nEvent Name:\t" + getName());
         details.append("\nMembers:\n");
         for (User user : members) {
-            details.append("\tMember Name:\t" + user.getName() + "\tFields:\t" + user.getFields() + "\n");
+            details.append("\tMember Name:\t" + user.getName() + "\tFields:\t" + user.toString() + "\n");
         }
         return details.toString();
     }
