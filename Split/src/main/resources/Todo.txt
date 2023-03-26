@@ -74,8 +74,15 @@ Expense:
 ExpenseManager:
 Transaction: Complete
 TransactionRecord: Complete
-TransactionHistory: Complete
+TransactionHistory: 
 TransactionHistoryManager:
 TransactionManager:
 Trip:
 User:
+UserManager
+
+**
+
+https://www.websequencediagrams.com
+
+springboot

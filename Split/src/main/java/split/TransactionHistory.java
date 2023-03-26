@@ -12,6 +12,7 @@ public class TransactionHistory {
     }
 
     public void addRecord(TransactionRecord record) {
+        assertTrue(!records.contains(record));
         records.add(record);
     }
 

@@ -11,13 +11,14 @@ public class TransactionHistoryManager {
         transactionHistoryMap = new HashMap<>();
     }
 
+    // add id, record
     public void addEntry(UUID id) {
-        assertTrue(!transactionHistoryMap.containsKey(id));
+        // assertTrue(!transactionHistoryMap.containsKey(id));
         transactionHistoryMap.put(id,new TransactionHistory());
     }
 
+    // remove id, record
     public void removeEntry(UUID id) {
-        transactionHistoryMap.put(id,new TransactionHistory());
         transactionHistoryMap.remove(id);
     }
 
