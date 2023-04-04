@@ -130,11 +130,15 @@ class Main {
         System.out.println(c.printSubArrays(totalCost,3));
         
         TransactionManager transactionManager = new TransactionManager();
+        UserManager userManager = new UserManager();
 
         // higher order create user function
         User user1 = new User("Josh");
+        userManager.addUser(user1);
         User user2 = new User("Suvass");
+        userManager.addUser(user2);
         User user3 = new User("Raghav");
+        userManager.addUser(user3);
 
         // higher order function that creates a transaction
         Transaction transaction1 = new Transaction(TransactionType.REQUEST, 100.0, "food");

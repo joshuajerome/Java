@@ -58,10 +58,10 @@ maintains map: user id, user's account
 
 Expense Manager class that handles everything
 
-*****
+***** 
 Add toString() to each class
 
-*****
+***** 03/23/23
 Account:    
 AccountManager:
 Calculator:
@@ -81,8 +81,16 @@ Trip:
 User:
 UserManager
 
-**
+** 03/24/23
 
 https://www.websequencediagrams.com
 
 springboot
+
+** 04/04/23 **
+
+- Identify which maps/vars should be static.
+- Create a high level class which has all managers and functions for the tests run in main 
+
+- Develop Contacts/ContactsManager, Account/AccountManager, UserManager
+- Trip/Event and incorporation of expense/ExpenseManager

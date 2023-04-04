@@ -31,9 +31,9 @@ public class TransactionHistoryManager {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Transaction History Manager:\n");
+        sb.append("Transaction Histories:\n");
         for (UUID id : transactionHistoryMap.keySet()) {
-            sb.append("id: " + id + "\n");
+            sb.append(UserManager.getUser(id).getName() + "'s Transaction History:\n");
             sb.append(transactionHistoryMap.get(id).toString());
         }
         return sb.toString();

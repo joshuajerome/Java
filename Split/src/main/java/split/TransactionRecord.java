@@ -31,9 +31,9 @@ public class TransactionRecord {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Transaction:\n\t" + transaction.toString());
-        sb.append("\t@\t" + formatTimeStamp() + "\n");
-        sb.append("From: " + sender + "\tTo: " + reciever + "\n");
+        sb.append("\n\tTransaction from: " + UserManager.getUser(sender).getName() + "\tto: " + UserManager.getUser(reciever).getName() + "\n");
+        sb.append("\t" + transaction.toString());
+        sb.append("\t@ " + formatTimeStamp() + "\n");
         return sb.toString();
     }
 

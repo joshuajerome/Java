@@ -3,10 +3,15 @@ import java.util.*;
 
 public class UserManager {
 
-    private HashMap<User,UUID> users;
+    private static HashMap<User,UUID> users;
 
     public UserManager() {
         users = new HashMap<>();
+    }
+
+    public void createUser(String name) {
+        User user = new User(name);
+        addUser(user);
     }
 
     public void addUser(User user) {
@@ -21,7 +26,7 @@ public class UserManager {
         return user.getID();
     }
 
-    public User getUser(UUID id) {
+    public static User getUser(UUID id) {
         for (User user : users.keySet()) {
             if (user.getID() == id) return user;
         }
