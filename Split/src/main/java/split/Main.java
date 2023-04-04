@@ -89,52 +89,54 @@ class Main {
         // System.out.println(user1.printTransactionHistory());
         // System.out.println(user2.printTransactionHistory());
 
-        // Calculator c = new Calculator();
-        // Double array1[] = new Double[] {7.0,11.0,13.0,9.0,41.0,37.0,23.0,29.0,43.0}; // 53.25 split by 4
-        // Double array2[] = new Double[] {5.0,7.0,11.0,14.0,22.0,39.0,50.0}; // 49.33 split by 3
-        // Double array3[] = new Double[] {5.0,10.0,20.0,8.0,15.0}; // 19.33 split by 3
-        // Double array4[] = new Double[] {10.0,15.0,20.0,1.0,35.0,20.0}; // 33.66 split by 3
-        // Double array5[] = new Double[] {2.0,5.0,7.0,1.0,9.0,8.0,3.0,6.0}; // 13.33 split by 3
-        // Double array6[] = new Double[] {1.0,2.0,3.0,4.0,5.0,6.0}; // 21.0 split by 3 = 7.0
-        // Double array7[] = new Double[] {15.0,49.0,17.49,21.22,18.30,18.35,19.1,20.21}; // split by 3 
+        Calculator c = new Calculator();
+        Double array1[] = new Double[] {7.0,11.0,13.0,9.0,41.0,37.0,23.0,29.0,43.0}; // 53.25 split by 4
+        Double array2[] = new Double[] {5.0,7.0,11.0,14.0,22.0,39.0,50.0}; // 49.33 split by 3
+        Double array3[] = new Double[] {5.0,10.0,20.0,8.0,15.0}; // 19.33 split by 3
+        Double array4[] = new Double[] {10.0,15.0,20.0,1.0,35.0,20.0}; // 33.66 split by 3
+        Double array5[] = new Double[] {2.0,5.0,7.0,1.0,9.0,8.0,3.0,6.0}; // 13.33 split by 3
+        Double array6[] = new Double[] {1.0,2.0,3.0,4.0,5.0,6.0}; // 21.0 split by 3 = 7.0
+        Double array7[] = new Double[] {15.0,49.0,17.49,21.22,18.30,18.35,19.1,20.21}; // split by 3 
 
         
-        // List<Double> totalCost;
+        List<Double> totalCost;
 
-        // System.out.println("Test Case 1:");
-        // totalCost = Arrays.asList(array1);
-        // System.out.println(c.printSubArrays(totalCost,4));
+        System.out.println("Test Case 1:");
+        totalCost = Arrays.asList(array1);
+        System.out.println(c.printSubArrays(totalCost,4));
 
-        // System.out.println("Test Case 2:");
-        // totalCost = Arrays.asList(array2);
-        // System.out.println(c.printSubArrays(totalCost,3));
+        System.out.println("Test Case 2:");
+        totalCost = Arrays.asList(array2);
+        System.out.println(c.printSubArrays(totalCost,3));
 
-        // System.out.println("Test Case 3:");
-        // totalCost = Arrays.asList(array3);
-        // System.out.println(c.printSubArrays(totalCost,3));
+        System.out.println("Test Case 3:");
+        totalCost = Arrays.asList(array3);
+        System.out.println(c.printSubArrays(totalCost,3));
 
-        // System.out.println("Test Case 4:");
-        // totalCost = Arrays.asList(array4);
-        // System.out.println(c.printSubArrays(totalCost,3));
+        System.out.println("Test Case 4:");
+        totalCost = Arrays.asList(array4);
+        System.out.println(c.printSubArrays(totalCost,3));
 
-        // System.out.println("Test Case 5:");
-        // totalCost = Arrays.asList(array5);
-        // System.out.println(c.printSubArrays(totalCost,3));
+        System.out.println("Test Case 5:");
+        totalCost = Arrays.asList(array5);
+        System.out.println(c.printSubArrays(totalCost,3));
 
-        // System.out.println("Test Case 6:");
-        // totalCost = Arrays.asList(array6);
-        // System.out.println(c.printSubArrays(totalCost,3));
+        System.out.println("Test Case 6:");
+        totalCost = Arrays.asList(array6);
+        System.out.println(c.printSubArrays(totalCost,3));
 
-        // System.out.println("Test Case 7:");
-        // totalCost = Arrays.asList(array7);
-        // System.out.println(c.printSubArrays(totalCost,3));
+        System.out.println("Test Case 7:");
+        totalCost = Arrays.asList(array7);
+        System.out.println(c.printSubArrays(totalCost,3));
         
         TransactionManager transactionManager = new TransactionManager();
 
+        // higher order create user function
         User user1 = new User("Josh");
         User user2 = new User("Suvass");
         User user3 = new User("Raghav");
 
+        // higher order function that creates a transaction
         Transaction transaction1 = new Transaction(TransactionType.REQUEST, 100.0, "food");
         Transaction transaction2 = new Transaction(TransactionType.REQUEST, 50.0, "dinner");
 

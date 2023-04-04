@@ -12,8 +12,8 @@ public class TransactionManager {
 
     public void transact(UUID sender, UUID reciever, Transaction transaction) {
         TransactionRecord record = new TransactionRecord(sender, reciever, transaction);
-        transactionHistoryManager.getTransactionHistory(sender).addRecord(record);
-        transactionHistoryManager.getTransactionHistory(reciever).addRecord(record);
+        transactionHistoryManager.addRecord(sender, record);
+        transactionHistoryManager.addRecord(reciever, record);
     }
 
     public void printTransactionHistoryManager() {
