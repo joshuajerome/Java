@@ -3,6 +3,8 @@ package split;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.*;
 
+/* Transaction history is subject to each user. Every user that has made a transaction has a transaction history */
+
 public class TransactionHistory {
 
     private HashSet<TransactionRecord> records;

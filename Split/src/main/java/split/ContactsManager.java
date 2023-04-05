@@ -5,7 +5,7 @@ import java.util.*;
 
 public class ContactsManager {
 
-    private HashMap<UUID,Contacts> contactsDatabase;
+    private static HashMap<UUID,Contacts> contactsDatabase;
     
     public ContactsManager() {
         contactsDatabase = new HashMap<>();

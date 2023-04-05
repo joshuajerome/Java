@@ -1,9 +1,14 @@
 package split;
 
+/* Transactions can be of the following types */
 enum TransactionType {
     REQUEST,
     SETTLED
 }
+
+/* Transactions have an amount, message, and type. Virtually the exist between users but have no internal relation to the users. 
+ * Externally, they are connected to users through higher order classes.
+*/
 
 public class Transaction {
 

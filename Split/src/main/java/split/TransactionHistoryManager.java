@@ -1,35 +1,34 @@
 package split;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.*;
 
-public class TransactionHistoryManager {
+/* Transaction History Manager is the highest order managerial class for transaction history/records.
+ * This class' methods will be invoked in TranactionManager.
+ */
 
-    private HashMap<UUID,TransactionHistory> transactionHistoryMap;
+public abstract class TransactionHistoryManager {
 
-    public TransactionHistoryManager() {
-        transactionHistoryMap = new HashMap<>();
-    }
+    private static HashMap<UUID,TransactionHistory> transactionHistoryMap = new HashMap<>();
 
-    public void addRecord(UUID id, TransactionRecord record) {
+    public static void addRecord(UUID id, TransactionRecord record) {
         if (!transactionHistoryMap.containsKey(id)) {
             transactionHistoryMap.put(id, new TransactionHistory());
         }
         transactionHistoryMap.get(id).addRecord(record);
     }
 
-    public void removeRecord(UUID id, TransactionRecord record) {
+    public static void removeRecord(UUID id, TransactionRecord record) {
         assertTrue(transactionHistoryMap.containsKey(id));
         transactionHistoryMap.get(id).removeRecord(record);
     }
 
-    public TransactionHistory getTransactionHistory(UUID id) {
+    public static TransactionHistory getTransactionHistory(UUID id) {
         assertTrue(transactionHistoryMap.containsKey(id));
         return transactionHistoryMap.get(id);
     }
 
-    @Override
-    public String toString() {
+    /* Does not override print because objects of this class can not be instantiated */
+    public static String print() {
         StringBuilder sb = new StringBuilder();
         sb.append("Transaction Histories:\n");
         for (UUID id : transactionHistoryMap.keySet()) {
@@ -37,6 +36,11 @@ public class TransactionHistoryManager {
             sb.append(transactionHistoryMap.get(id).toString());
         }
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return print();
     }
     
 }
