@@ -1,35 +1,42 @@
 package split;
 import java.util.*;
 
-public class UserManager {
+public abstract class UserManager {
 
-    private static HashMap<User,UUID> users;
+    private static HashMap<User,UUID> users = new HashMap<>();
+    private static HashMap<UUID,User> uuids = new HashMap<>();
 
-    public UserManager() {
-        users = new HashMap<>();
-    }
-
-    public void createUser(String name) {
+    public static User add(String name) {
         User user = new User(name);
-        addUser(user);
-    }
-
-    public void addUser(User user) {
         users.put(user, user.getID());
+        uuids.put(user.getID(), user);
+        return user;
     }
 
-    public void removeUser(User user) {
+    public static void remove(User user) {
+        uuids.remove(get(user));
         users.remove(user);
     }
 
-    public UUID getUUID(User user) {
+    public static UUID get(User user) {
         return user.getID();
     }
 
-    public static User getUser(UUID id) {
-        for (User user : users.keySet()) {
-            if (user.getID() == id) return user;
+    public static User get(UUID id) {
+        return uuids.get(id);
+    }
+
+    public static String print() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Users map: (K: User, V: UUID)");
+        for (UUID id : uuids.keySet()) {
+            sb.append("User: " + get(id).getName() + "\tUUID: " + id);
         }
-        return null;
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return print();
     }
 }

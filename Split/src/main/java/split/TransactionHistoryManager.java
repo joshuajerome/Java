@@ -32,7 +32,7 @@ public abstract class TransactionHistoryManager {
         StringBuilder sb = new StringBuilder();
         sb.append("Transaction Histories:\n");
         for (UUID id : transactionHistoryMap.keySet()) {
-            sb.append(UserManager.getUser(id).getName() + "'s Transaction History:\n");
+            sb.append(UserManager.get(id).getName() + "'s Transaction History:\n");
             sb.append(transactionHistoryMap.get(id).toString());
         }
         return sb.toString();

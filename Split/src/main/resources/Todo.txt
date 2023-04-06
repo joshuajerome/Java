@@ -57,7 +57,7 @@ UserManager
 
 https://www.websequencediagrams.com
 
-springboot
+- springboot (after Split is complete)
 
 ** 04/04/23 **
 
@@ -69,6 +69,10 @@ springboot
 
 ** 04/05/23 **
 
+Josh:
+
+- Need to make updates to Account, AccountManager, Contacts, ContactsManager, UserManager.
+
 Suvass & Raghav:
 
 Optimize Calculator class. Curently we have generateSubArrays() and optimize() which are two seperate functions
@@ -76,3 +80,14 @@ that work sequentially to return the desired split of sub arrays. It appears tha
 recursive, so try to combine these functions into one recursive function. Then translate this recurive function
 into an iterative function.
 
+Josh, Suvass, & Raghav:
+
+- Creating Trip, Event, Expense?, ExpenseManager?
+
+Wayyyyy down the line:
+Think about how we can automate more with CSV files for users/fields:
+- Recording transactions into a file, then loading these transactions into database. 
+  This should be external from the main program -- maybe in a tangent database class?
+  Database should have a function called load() which loads data from a file into all static managerial data structures.
+  Database should have a function called store() which rewrites all data into the files.
+- There should also be a simulator which allows us to login/signup, add contacts, create transactions, trips, events
