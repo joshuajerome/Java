@@ -6,31 +6,30 @@ public class Contacts {
 
     /* CONTACTS FUNCTIONS */
     
-    private HashSet<User> contacts;
+    private HashSet<UUID> contacts;
 
     public Contacts() {
         contacts = new HashSet<>();
     }
 
-    public void addContact(User user) {
-        contacts.add(user);
+    public void addContact(UUID id) {
+        contacts.add(id);
     }
 
-    public void deleteContact(User user) {
-        contacts.remove(user);
+    public void deleteContact(UUID id) {
+        contacts.remove(id);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (contacts.size() == 0) {
-            sb.append("Users is empty!");
+            sb.append("Contacts is empty!");
         }
         int counter = 0;
-        for (User user : contacts) {
-            sb.append("Entry " + ++counter + ":\t" + user.getName() + "\tFields: " + user.toString() + "\n");
+        for (UUID id : contacts) {
+            sb.append("Entry " + ++counter + ":\t" + UserManager.get(id).getName() + "\tFields: " + UserManager.get(id).toString() + "\n");
         }
-        if (contacts.size() == 0) sb.append("Database is empty!\n");
         return sb.toString();
     }
 }

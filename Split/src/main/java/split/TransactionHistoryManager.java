@@ -4,31 +4,45 @@ import java.util.*;
 
 /* Transaction History Manager is the highest order managerial class for transaction history/records.
  * This class' methods will be invoked in TranactionManager.
+ * This class follows Singelton Pattern
  */
 
-public abstract class TransactionHistoryManager {
+public class TransactionHistoryManager {
 
-    private static HashMap<UUID,TransactionHistory> transactionHistoryMap = new HashMap<>();
+    private static TransactionHistoryManager single_instance = null;
 
-    public static void addRecord(UUID id, TransactionRecord record) {
+    private static HashMap<UUID,TransactionHistory> transactionHistoryMap;
+
+    private TransactionHistoryManager() {
+        transactionHistoryMap = new HashMap<>();
+    }
+
+    public static synchronized TransactionHistoryManager getInstance() {
+        if (single_instance == null) {
+            single_instance = new TransactionHistoryManager();
+        }
+        return single_instance;
+    }
+
+    public void addRecord(UUID id, TransactionRecord record) {
         if (!transactionHistoryMap.containsKey(id)) {
             transactionHistoryMap.put(id, new TransactionHistory());
         }
         transactionHistoryMap.get(id).addRecord(record);
     }
 
-    public static void removeRecord(UUID id, TransactionRecord record) {
+    public void removeRecord(UUID id, TransactionRecord record) {
         assertTrue(transactionHistoryMap.containsKey(id));
         transactionHistoryMap.get(id).removeRecord(record);
     }
 
-    public static TransactionHistory getTransactionHistory(UUID id) {
+    public TransactionHistory getTransactionHistory(UUID id) {
         assertTrue(transactionHistoryMap.containsKey(id));
         return transactionHistoryMap.get(id);
     }
 
-    /* Does not override print because objects of this class can not be instantiated */
-    public static String print() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Transaction Histories:\n");
         for (UUID id : transactionHistoryMap.keySet()) {
@@ -36,11 +50,6 @@ public abstract class TransactionHistoryManager {
             sb.append(transactionHistoryMap.get(id).toString());
         }
         return sb.toString();
-    }
-
-    @Override
-    public String toString() {
-        return print();
     }
     
 }

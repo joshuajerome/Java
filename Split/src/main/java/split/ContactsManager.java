@@ -5,10 +5,18 @@ import java.util.*;
 
 public class ContactsManager {
 
-    private static HashMap<UUID,Contacts> contactsDatabase;
-    
-    public ContactsManager() {
+    private static ContactsManager contactsManager = null;
+    private static HashMap<UUID,Contacts> contactsDatabase = null;
+
+    private ContactsManager() {
         contactsDatabase = new HashMap<>();
+    }
+
+    public ContactsManager getInstance() {
+        if (contactsManager == null) {
+            contactsManager = new ContactsManager();
+        }
+        return contactsManager;
     }
 
     public void addEntry(UUID id) {
@@ -24,6 +32,17 @@ public class ContactsManager {
     public Contacts getEntry(UUID id) {
         assertTrue(contactsDatabase.containsKey(id));
         return contactsDatabase.get(id);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Contacts Database:\n");
+        for (UUID id : contactsDatabase.keySet()) {
+            sb.append(UserManager.get(id) + "'s Contacts:\n");
+            sb.append(getEntry(id).toString());
+        }
+        return sb.toString();
     }
 
     
