@@ -2,7 +2,7 @@
 
 A collection of my Java projects.
 
-## Split (In-Progress _Not Functional_)
+## Split (In-Progress)
 
 _Manage trip expenses simply._
 
