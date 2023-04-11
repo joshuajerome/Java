@@ -12,16 +12,16 @@ public class ContactsManager {
         contactsDatabase = new HashMap<>();
     }
 
-    public ContactsManager getInstance() {
+    public static ContactsManager getInstance() {
         if (contactsManager == null) {
             contactsManager = new ContactsManager();
         }
         return contactsManager;
     }
 
-    public void addEntry(UUID id) {
+    public void addEntry(UUID id, Contacts contacts) {
         assertTrue(!contactsDatabase.containsKey(id));
-        contactsDatabase.put(id, new Contacts());
+        contactsDatabase.put(id, contacts);
     }
 
     public void removeEntry(UUID id) {

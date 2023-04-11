@@ -88,6 +88,9 @@ Wayyyyy down the line:
 Think about how we can automate more with CSV files for users/fields:
 - Recording transactions into a file, then loading these transactions into database. 
   This should be external from the main program -- maybe in a tangent database class?
-  Database should have a function called load() which loads data from a file into all static managerial data structures.
+  Database should have a function called load() which loads data from a file into all singelton managerial data structures.
   Database should have a function called store() which rewrites all data into the files.
 - There should also be a simulator which allows us to login/signup, add contacts, create transactions, trips, events
+
+** 04/11/23 **
+Associating User specific structures with Users is done with singelton data structures. get(UUID);

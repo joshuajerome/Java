@@ -24,6 +24,7 @@ public class TransactionManager {
         transactionHistoryManager.addRecord(reciever, record);
     }
 
+    // to actually manage the balances in Accounts
     private void name(TransactionRecord record) {
 
     }

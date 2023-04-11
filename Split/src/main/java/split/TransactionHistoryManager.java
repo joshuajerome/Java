@@ -9,7 +9,7 @@ import java.util.*;
 
 public class TransactionHistoryManager {
 
-    private static TransactionHistoryManager single_instance = null;
+    private static TransactionHistoryManager transactionHistoryManager = null;
 
     private static HashMap<UUID,TransactionHistory> transactionHistoryMap;
 
@@ -18,10 +18,10 @@ public class TransactionHistoryManager {
     }
 
     public static synchronized TransactionHistoryManager getInstance() {
-        if (single_instance == null) {
-            single_instance = new TransactionHistoryManager();
+        if (transactionHistoryManager == null) {
+            transactionHistoryManager = new TransactionHistoryManager();
         }
-        return single_instance;
+        return transactionHistoryManager;
     }
 
     public void addRecord(UUID id, TransactionRecord record) {

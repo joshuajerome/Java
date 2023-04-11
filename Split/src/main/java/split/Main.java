@@ -129,13 +129,15 @@ class Main {
         totalCost = Arrays.asList(array7);
         System.out.println(c.printSubArrays(totalCost,3));
         
+        
+        UserManager userManager = UserManager.getInstance();
         TransactionHistoryManager transactionHistoryManager = TransactionHistoryManager.getInstance();
         TransactionManager transactionManager = TransactionManager.getInstance();
         
         // higher order create user function
-        User user1 = UserManager.add("Joshua");
-        User user2 = UserManager.add("Suvass");
-        User user3 = UserManager.add("Raghav");
+        User user1 = userManager.addUser("Joshua");
+        User user2 = userManager.addUser("Suvass");
+        User user3 = userManager.addUser("Raghav");
 
         // higher order function that creates a transaction
         Transaction transaction1 = new Transaction(TransactionType.REQUEST, 100.0, "food");
