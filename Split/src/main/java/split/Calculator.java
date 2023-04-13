@@ -217,7 +217,7 @@ public class Calculator {
 
     /* Prints all the generated subarrays */
     public String printSubArrays(List<Double> allCosts, int k) {
-        List<List<Double>> list = optimize(generateSubArrays(allCosts, k), k);
+        List<List<Double>> list = genSub2(allCosts, k);
         StringBuilder sb = new StringBuilder();
         list.add(expected(sumList(allCosts),k));
         for (List<Double> l : list) {
@@ -232,6 +232,80 @@ public class Calculator {
         return sb.toString();
     }
 
+    public String printSubArraysOLD(List<Double> allCosts, int k) {
+        List<List<Double>> list = optimize(generateSubArrays(allCosts, k),k);
+        StringBuilder sb = new StringBuilder();
+        list.add(expected(sumList(allCosts),k));
+        for (List<Double> l : list) {
+            sb.append("[");
+            for (Double d : l) {
+                sb.append(d + ",\t");
+            }
+            sb.replace(sb.length() - 1, sb.length(), "]");
+            sb.append("\tSum =\t" + sumList(l));
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 
+    public List<List<Double>> genSub2(List<Double> allCosts, int k) {
+        
+        Collections.sort(allCosts);
+
+        List<List<Double>> subArrays = new ArrayList<>();
+        HashSet<Integer> addedValues = new HashSet<>();
+
+        double totalCost = sumList(allCosts);
+        List<Double> kExpected = expected(totalCost,k);
+        
+        for (int i = 0, upperEnd = allCosts.size() - 1; i < k; i++) { // create k sub arrays
+            List<Double> subArray = new ArrayList<>();
+            subArray.add(allCosts.get(upperEnd));
+            addedValues.add(upperEnd);
+
+            double diff = Math.abs(kExpected.get(i) - sumList(subArray));
+
+            for (int j = 0; j < upperEnd; j++) {
+                int potential = upperEnd;
+                for (int h = 0; h < upperEnd; h++) {
+                    if (!addedValues.contains(h)) {
+                        double valDiff = Math.abs(kExpected.get(i) - sumList(subArray) - allCosts.get(h));
+                        if (valDiff < diff) {
+                            diff = valDiff;
+                            potential = h;
+                        } else break;
+                    }
+                }
+                if (potential != upperEnd) {
+                    subArray.add(allCosts.get(potential));
+                    addedValues.add(potential);
+                }
+            }
+            upperEnd--;
+            subArrays.add(subArray);
+        }
+
+        double threshold = Collections.min(allCosts)/2.0;
+        List<Double> checkValues = new ArrayList<>();
+        int kCounter = 0;
+
+        for (int i = 0; i < subArrays.size();) {
+            List<Double> subArray = subArrays.get(i);
+            if (Math.abs(sumList(allCosts)/k - sumList(subArray)) > threshold) {
+                kCounter++;
+                checkValues.addAll(subArray);
+                subArrays.remove(subArray);
+            } else {
+                i++;
+            }
+        }
+
+        if (kCounter > 0) {
+            List<List<Double>> optimizedList = genSub2(checkValues, kCounter);
+            subArrays.addAll(optimizedList);   
+        }
+
+        return subArrays;
+    }
 
 }
