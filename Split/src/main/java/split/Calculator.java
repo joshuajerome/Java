@@ -285,7 +285,7 @@ public class Calculator {
             subArrays.add(subArray);
         }
 
-        double threshold = Collections.min(allCosts)/2.0;
+        double threshold = truncate(sumList(allCosts)/allCosts.size(),0);
         List<Double> checkValues = new ArrayList<>();
         int kCounter = 0;
 
