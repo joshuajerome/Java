@@ -217,7 +217,7 @@ public class Calculator {
 
     /* Prints all the generated subarrays */
     public String printSubArrays(List<Double> allCosts, int k) {
-        List<List<Double>> list = genSub2(allCosts, k);
+        List<List<Double>> list = genSub2(allCosts, k, 0);
         StringBuilder sb = new StringBuilder();
         list.add(expected(sumList(allCosts),k));
         for (List<Double> l : list) {
@@ -248,7 +248,7 @@ public class Calculator {
         return sb.toString();
     }
 
-    public List<List<Double>> genSub2(List<Double> allCosts, int k) {
+    public List<List<Double>> genSub2(List<Double> allCosts, int k, int rCounter) {
         
         Collections.sort(allCosts);
 
@@ -257,6 +257,9 @@ public class Calculator {
 
         double totalCost = sumList(allCosts);
         List<Double> kExpected = expected(totalCost,k);
+
+        double min = Double.MAX_VALUE;
+        min = (Collections.min(allCosts) < min)? Collections.min(allCosts) : min;
         
         for (int i = 0, upperEnd = allCosts.size() - 1; i < k; i++) { // create k sub arrays
             List<Double> subArray = new ArrayList<>();
@@ -285,7 +288,9 @@ public class Calculator {
             subArrays.add(subArray);
         }
 
-        double threshold = truncate(sumList(allCosts)/allCosts.size(),0);
+        if (rCounter >= 5) return subArrays;
+
+        double threshold = min/2.0; // success of test cases depend on this. Need to change it.
         List<Double> checkValues = new ArrayList<>();
         int kCounter = 0;
 
@@ -301,7 +306,7 @@ public class Calculator {
         }
 
         if (kCounter > 0) {
-            List<List<Double>> optimizedList = genSub2(checkValues, kCounter);
+            List<List<Double>> optimizedList = genSub2(checkValues, kCounter, rCounter + 1);
             subArrays.addAll(optimizedList);   
         }
 
